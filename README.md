@@ -1,6 +1,6 @@
 # FitNest
 
-A workout tracking application.
+A mobile fitness and workouts tracking application!
 
 ## Assignment
 
