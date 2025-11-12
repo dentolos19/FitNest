@@ -4,7 +4,7 @@ import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import me.dennise.fitnest.data.FitNestDatabase
+import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.User
 import me.dennise.fitnest.data.UserRepository
 
@@ -12,7 +12,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     private val repository: UserRepository
 
     init {
-        val userDao = FitNestDatabase.Companion.getDatabase(application).userDao()
+        val userDao = AppDatabase.Companion.getDatabase(application).userDao()
         repository = UserRepository(userDao)
     }
 

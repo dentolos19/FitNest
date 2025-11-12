@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import me.dennise.fitnest.ui.theme.FitNestTheme
+import me.dennise.fitnest.ui.theme.AppTheme
 
 @Composable
 fun HomeScreen() {
@@ -21,7 +21,7 @@ fun HomeScreen() {
 @Composable
 @Preview(showBackground = true)
 fun HomePreview() {
-    FitNestTheme {
+    AppTheme {
         HomeScreen()
     }
 }

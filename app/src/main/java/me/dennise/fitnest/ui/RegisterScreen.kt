@@ -16,7 +16,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.dennise.fitnest.ui.theme.FitNestTheme
+import me.dennise.fitnest.ui.theme.AppTheme
 import java.util.*
 
 @Composable
@@ -257,7 +257,7 @@ fun RegisterScreen(
 @Composable
 @Preview(showBackground = true)
 fun RegisterPreview() {
-    FitNestTheme {
+    AppTheme {
         RegisterScreen()
     }
 }

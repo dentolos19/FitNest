@@ -6,20 +6,20 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 
 @Database(entities = [User::class, Workout::class], version = 2, exportSchema = false)
-abstract class FitNestDatabase : RoomDatabase() {
+abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun workoutDao(): WorkoutDao
 
     companion object {
         @Volatile
-        private var INSTANCE: FitNestDatabase? = null
+        private var INSTANCE: AppDatabase? = null
 
-        fun getDatabase(context: Context): FitNestDatabase {
+        fun getDatabase(context: Context): AppDatabase {
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
-                    FitNestDatabase::class.java,
-                    "fitnest"
+                    AppDatabase::class.java,
+                    "database"
                 )
                     .fallbackToDestructiveMigration() // allows version upgrades
                     .build()

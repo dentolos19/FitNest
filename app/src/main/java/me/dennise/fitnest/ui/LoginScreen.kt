@@ -22,7 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.R
-import me.dennise.fitnest.ui.theme.FitNestTheme
+import me.dennise.fitnest.ui.theme.AppTheme
 
 @Composable
 fun LoginScreen(
@@ -185,7 +185,7 @@ fun LoginScreen(
 @Composable
 @Preview(showBackground = true)
 fun LoginPreview() {
-    FitNestTheme {
+    AppTheme {
         LoginScreen()
     }
 }
