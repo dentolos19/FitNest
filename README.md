@@ -1,10 +1,6 @@
 # FitNest
 
-A mobile fitness and workouts tracking application!
-
-## Assignment
-
-This project is an assignment for the Mobile Application Development (IT2161) module at Nanyang Polytechnic.
+An assignment for the Mobile Application Development (IT2161) module at Nanyang Polytechnic.
 
 ## License
 
