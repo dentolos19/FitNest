@@ -1,0 +1,14 @@
+package me.dennise.fitnest.data
+
+class UserRepository(private val userDao: UserDao) {
+    suspend fun loginUser(username: String, password: String) = userDao.getWithPassword(username, password)
+    suspend fun registerUser(user: User) = userDao.insert(user)
+    suspend fun getUser(username: String) = userDao.get(username)
+    suspend fun updateUser(user: User) = userDao.updateUser(user)
+}
+
+class WorkoutRepository(private val workoutDao: WorkoutDao) {
+    suspend fun getWorkouts() = workoutDao.all()
+    suspend fun addWorkout(workout: Workout) = workoutDao.insert(workout)
+    suspend fun deleteWorkout(workout: Workout) = workoutDao.delete(workout)
+}
