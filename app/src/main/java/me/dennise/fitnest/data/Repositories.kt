@@ -9,6 +9,7 @@ class UserRepository(private val userDao: UserDao) {
 
 class WorkoutRepository(private val workoutDao: WorkoutDao) {
     suspend fun getWorkouts() = workoutDao.all()
+    suspend fun getWorkout(id: Int) = workoutDao.get(id)
     suspend fun addWorkout(workout: Workout) = workoutDao.insert(workout)
     suspend fun deleteWorkout(workout: Workout) = workoutDao.delete(workout)
 }
