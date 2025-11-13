@@ -1,0 +1,51 @@
+package me.dennise.fitnest.ui
+
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.launch
+import me.dennise.fitnest.data.AppDatabase
+import me.dennise.fitnest.data.Workout
+import me.dennise.fitnest.data.WorkoutRepository
+
+data class WorkoutDetailUiState(
+    val workout: Workout? = null,
+    val isLoading: Boolean = true,
+    val isDeleted: Boolean = false
+)
+
+class WorkoutDetailViewModel(application: Application) : AndroidViewModel(application) {
+    private val workoutRepository: WorkoutRepository
+
+    private val _uiState = MutableStateFlow(WorkoutDetailUiState())
+    val uiState: StateFlow<WorkoutDetailUiState> = _uiState.asStateFlow()
+
+    init {
+        val database = AppDatabase.getDatabase(application)
+        workoutRepository = WorkoutRepository(database.workoutDao())
+    }
+
+    fun loadWorkout(workoutId: Int) {
+        viewModelScope.launch {
+            _uiState.value = _uiState.value.copy(isLoading = true)
+            val workout = workoutRepository.getWorkout(workoutId)
+            _uiState.value = _uiState.value.copy(
+                workout = workout,
+                isLoading = false
+            )
+        }
+    }
+
+    fun deleteWorkout() {
+        viewModelScope.launch {
+            _uiState.value.workout?.let { workout ->
+                workoutRepository.deleteWorkout(workout)
+                _uiState.value = _uiState.value.copy(isDeleted = true)
+            }
+        }
+    }
+}
+

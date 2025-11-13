@@ -17,6 +17,7 @@ import me.dennise.fitnest.ui.AddWorkoutScreen
 import me.dennise.fitnest.ui.HomeScreen
 import me.dennise.fitnest.ui.LoginScreen
 import me.dennise.fitnest.ui.RegisterScreen
+import me.dennise.fitnest.ui.WorkoutDetailScreen
 
 object AppRoutes {
     const val LOGIN = "login"
@@ -109,11 +110,13 @@ fun AppNavigation() {
             arguments = listOf(navArgument("workoutId") { type = NavType.IntType })
         ) { backStackEntry ->
             val workoutId = backStackEntry.arguments?.getInt("workoutId") ?: 0
-            // Placeholder for Workout Detail Screen
-            PlaceholderScreen(
-                title = "Workout Detail Screen",
-                subtitle = "Workout ID: $workoutId",
-                onBack = { navController.navigateUp() }
+            WorkoutDetailScreen(
+                workoutId = workoutId,
+                onNavigateBack = {
+                    navController.navigate(AppRoutes.HOME) {
+                        popUpTo(AppRoutes.HOME) { inclusive = true }
+                    }
+                }
             )
         }
     }
