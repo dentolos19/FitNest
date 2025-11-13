@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.Workout
 import me.dennise.fitnest.data.WorkoutRepository
+import me.dennise.fitnest.data.Session
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -27,13 +28,17 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadWorkouts() {
         viewModelScope.launch {
-            _workouts.value = workoutRepository.getWorkouts()
+            val userId = Session.getCurrentUserId()
+            if (userId != null) {
+                _workouts.value = workoutRepository.getWorkouts(userId)
+            }
         }
     }
 
     // Add sample workouts for testing - can be called from UI
     fun addSampleWorkouts() {
         viewModelScope.launch {
+            val userId = Session.getCurrentUserId() ?: return@launch
             val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
             val calendar = Calendar.getInstance()
 
@@ -41,6 +46,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
+                    userId = userId,
                     name = "Morning Run",
                     category = "Running",
                     duration = 45,
@@ -55,6 +61,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
+                    userId = userId,
                     name = "Evening Cycling",
                     category = "Cycling",
                     duration = 60,
@@ -69,6 +76,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
+                    userId = userId,
                     name = "Yoga Session",
                     category = "Yoga",
                     duration = 30,
@@ -83,6 +91,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             calendar.add(Calendar.DAY_OF_YEAR, -2)
             workoutRepository.addWorkout(
                 Workout(
+                    userId = userId,
                     name = "Swimming Laps",
                     category = "Swimming",
                     duration = 40,
@@ -97,6 +106,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
+                    userId = userId,
                     name = "Strength Training",
                     category = "Gym",
                     duration = 75,

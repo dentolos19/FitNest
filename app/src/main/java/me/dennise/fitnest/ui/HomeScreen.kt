@@ -6,23 +6,18 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.automirrored.filled.DirectionsRun
-import androidx.compose.material.icons.automirrored.filled.DirectionsBike
 import androidx.compose.material.icons.filled.FitnessCenter
-import androidx.compose.material.icons.filled.Pool
-import androidx.compose.material.icons.filled.SelfImprovement
-import androidx.compose.material.icons.filled.SportsBasketball
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.data.Workout
+import me.dennise.fitnest.data.Session
 import me.dennise.fitnest.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -86,6 +81,7 @@ fun HomeScreen(
                                 text = { Text("Logout") },
                                 onClick = {
                                     showMenu = false
+                                    Session.logout()
                                     onLogout()
                                 }
                             )

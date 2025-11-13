@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.Workout
 import me.dennise.fitnest.data.WorkoutRepository
+import me.dennise.fitnest.data.Session
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -89,11 +90,18 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
             return false
         }
 
+        // Get current user ID
+        val userId = Session.getCurrentUserId()
+        if (userId == null) {
+            return false
+        }
+
         // Category is always selected (has default), so no validation needed
 
         // Save workout
         viewModelScope.launch {
             val workout = Workout(
+                userId = userId,
                 name = state.name,
                 category = state.category,
                 duration = state.duration.toIntOrNull(),

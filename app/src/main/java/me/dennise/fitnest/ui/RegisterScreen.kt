@@ -25,6 +25,9 @@ fun RegisterScreen(
     onCancel: () -> Unit = {},
     viewModel: RegisterViewModel = viewModel()
 ) {
+    val context = LocalContext.current
+    val calendar = Calendar.getInstance()
+
     var userName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var confirmPassword by remember { mutableStateOf("") }
@@ -33,9 +36,6 @@ fun RegisterScreen(
     var mobileNumber by remember { mutableStateOf("") }
     var receiveUpdates by remember { mutableStateOf(false) }
     var yearOfBirth by remember { mutableStateOf("") }
-
-    val context = LocalContext.current
-    val calendar = Calendar.getInstance()
 
     val datePickerDialog = DatePickerDialog(
         context,
@@ -62,7 +62,7 @@ fun RegisterScreen(
                 modifier = Modifier.padding(bottom = 8.dp)
             )
 
-            // User name field
+            // Username Field
             OutlinedTextField(
                 value = userName,
                 onValueChange = { userName = it },
@@ -72,7 +72,7 @@ fun RegisterScreen(
                 singleLine = true
             )
 
-            // Password field
+            // Password Field
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -83,7 +83,7 @@ fun RegisterScreen(
                 singleLine = true
             )
 
-            // Confirm password field
+            // Confirm Password Field
             OutlinedTextField(
                 value = confirmPassword,
                 onValueChange = { confirmPassword = it },
@@ -94,7 +94,7 @@ fun RegisterScreen(
                 singleLine = true
             )
 
-            // Email field
+            // Email Field
             OutlinedTextField(
                 value = email,
                 onValueChange = { email = it },
@@ -105,7 +105,7 @@ fun RegisterScreen(
                 singleLine = true
             )
 
-            // Gender selection
+            // Gender Selection
             Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
                     text = "Gender",
@@ -132,7 +132,7 @@ fun RegisterScreen(
                 }
             }
 
-            // Mobile number field
+            // Mobile Number Field
             OutlinedTextField(
                 value = mobileNumber,
                 onValueChange = {
@@ -148,7 +148,7 @@ fun RegisterScreen(
                 singleLine = true
             )
 
-            // To receive updates checkbox
+            // Receive Updates Checkbox
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -163,7 +163,7 @@ fun RegisterScreen(
                 )
             }
 
-            // Year of birth date picker
+            // Year of Birth Picker
             OutlinedTextField(
                 value = yearOfBirth,
                 onValueChange = { },
@@ -180,7 +180,7 @@ fun RegisterScreen(
 
             Spacer(modifier = Modifier.height(8.dp))
 
-            // Register button
+            // Register Button
             Button(
                 onClick = {
                     // Validate all required fields
@@ -219,7 +219,7 @@ fun RegisterScreen(
 
                         else -> {
                             // All validations passed, save details to database
-                            viewModel.registerUser(
+                            viewModel.register(
                                 username = userName,
                                 password = password,
                                 email = email,
@@ -243,7 +243,7 @@ fun RegisterScreen(
                 Text("Submit Registration")
             }
 
-            // Cancel button
+            // Cancel Button
             OutlinedButton(
                 onClick = onCancel,
                 modifier = Modifier.fillMaxWidth()

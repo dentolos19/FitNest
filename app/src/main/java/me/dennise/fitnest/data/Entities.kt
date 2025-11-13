@@ -29,9 +29,19 @@ interface UserDao {
     suspend fun updateUser(user: User)
 }
 
-@Entity(tableName = "workouts")
+@Entity(
+    tableName = "workouts",
+    foreignKeys = [ForeignKey(
+        entity = User::class,
+        parentColumns = ["id"],
+        childColumns = ["userId"],
+        onDelete = ForeignKey.CASCADE
+    )],
+    indices = [Index(value = ["userId"])]
+)
 data class Workout(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
+    val userId: Int,
     val name: String,
     val category: String,
     val duration: Int?,
@@ -43,8 +53,8 @@ data class Workout(
 
 @Dao
 interface WorkoutDao {
-    @Query("SELECT * FROM workouts ORDER BY id DESC")
-    suspend fun all(): List<Workout>
+    @Query("SELECT * FROM workouts WHERE userId = :userId ORDER BY id DESC")
+    suspend fun all(userId: Int): List<Workout>
 
     @Query("SELECT * FROM workouts WHERE id = :id LIMIT 1")
     suspend fun get(id: Int): Workout?

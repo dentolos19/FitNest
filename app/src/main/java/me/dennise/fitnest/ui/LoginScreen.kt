@@ -30,12 +30,13 @@ fun LoginScreen(
     onRegisterClick: () -> Unit = {},
     viewModel: LoginViewModel = viewModel()
 ) {
+    val context = LocalContext.current
+
     var username by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
     var passwordVisible by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
 
-    val context = LocalContext.current
 
     Scaffold { innerPadding ->
         Column(
@@ -56,7 +57,6 @@ fun LoginScreen(
                     .padding(bottom = 32.dp)
             )
 
-            // App Title
             Text(
                 text = "FitNest",
                 style = MaterialTheme.typography.headlineLarge,
@@ -71,7 +71,7 @@ fun LoginScreen(
                 modifier = Modifier.padding(bottom = 32.dp)
             )
 
-            // User ID field
+            // Username Field
             OutlinedTextField(
                 value = username,
                 onValueChange = { username = it },
@@ -84,7 +84,7 @@ fun LoginScreen(
                 enabled = !isLoading
             )
 
-            // Password field with visibility toggle
+            // Password Field
             OutlinedTextField(
                 value = password,
                 onValueChange = { password = it },
@@ -120,7 +120,7 @@ fun LoginScreen(
                     }
 
                     isLoading = true
-                    viewModel.loginUser(
+                    viewModel.login(
                         username = username,
                         password = password,
                         onSuccess = {
@@ -172,7 +172,7 @@ fun LoginScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Test credentials hint
+            // Test Credentials Info
             Text(
                 text = "Test credentials: TestUser1 / TestPassword1",
                 style = MaterialTheme.typography.bodySmall,

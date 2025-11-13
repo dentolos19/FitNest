@@ -5,6 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
+import me.dennise.fitnest.data.Session
 import me.dennise.fitnest.data.User
 import me.dennise.fitnest.data.UserRepository
 
@@ -12,11 +13,11 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     private val repository: UserRepository
 
     init {
-        val userDao = AppDatabase.Companion.getDatabase(application).userDao()
-        repository = UserRepository(userDao)
+        val database = AppDatabase.getDatabase(application)
+        repository = UserRepository(database.userDao())
     }
 
-    fun registerUser(
+    fun register(
         username: String,
         password: String,
         email: String,
@@ -48,6 +49,13 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 )
 
                 repository.registerUser(user)
+
+                // Get the newly created user with its ID and login
+                val newUser = repository.getUser(username)
+                if (newUser != null) {
+                    Session.loginUser(newUser)
+                }
+
                 onSuccess()
             } catch (e: Exception) {
                 onError("Registration failed: ${e.message}")
