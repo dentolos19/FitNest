@@ -16,8 +16,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.dennise.fitnest.data.Workout
+import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.Session
+import me.dennise.fitnest.data.Workout
 import me.dennise.fitnest.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,10 +30,11 @@ fun HomeScreen(
     onWorkoutClick: (Int) -> Unit = {},
     viewModel: HomeViewModel = viewModel()
 ) {
+    val scope = rememberCoroutineScope()
+
     val workouts by viewModel.workouts.collectAsState()
     var showMenu by remember { mutableStateOf(false) }
 
-    // Reload workouts when screen is displayed
     LaunchedEffect(Unit) {
         viewModel.loadWorkouts()
     }
@@ -81,8 +83,10 @@ fun HomeScreen(
                                 text = { Text("Logout") },
                                 onClick = {
                                     showMenu = false
-                                    Session.logout()
-                                    onLogout()
+                                    scope.launch {
+                                        Session.logout()
+                                        onLogout()
+                                    }
                                 }
                             )
                         }

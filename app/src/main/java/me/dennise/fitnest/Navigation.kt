@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -13,11 +13,9 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
-import me.dennise.fitnest.ui.AddWorkoutScreen
-import me.dennise.fitnest.ui.HomeScreen
-import me.dennise.fitnest.ui.LoginScreen
-import me.dennise.fitnest.ui.RegisterScreen
-import me.dennise.fitnest.ui.WorkoutDetailScreen
+import kotlinx.coroutines.launch
+import me.dennise.fitnest.data.Session
+import me.dennise.fitnest.ui.*
 
 object AppRoutes {
     const val LOGIN = "login"
@@ -33,8 +31,34 @@ object AppRoutes {
 @Composable
 fun AppNavigation() {
     val navController = rememberNavController()
+    val scope = rememberCoroutineScope()
 
-    NavHost(navController = navController, startDestination = AppRoutes.LOGIN) {
+    var isCheckingSession by remember { mutableStateOf(true) }
+    var startDestination by remember { mutableStateOf(AppRoutes.LOGIN) }
+
+    LaunchedEffect(Unit) {
+        scope.launch {
+            val user = Session.restoreSession()
+            startDestination = if (user != null) {
+                AppRoutes.HOME
+            } else {
+                AppRoutes.LOGIN
+            }
+            isCheckingSession = false
+        }
+    }
+
+    if (isCheckingSession) {
+        Box(
+            modifier = Modifier.fillMaxSize(),
+            contentAlignment = Alignment.Center
+        ) {
+            CircularProgressIndicator()
+        }
+        return
+    }
+
+    NavHost(navController = navController, startDestination = startDestination) {
         composable(AppRoutes.LOGIN) {
             LoginScreen(
                 onLoginSuccess = {
@@ -87,7 +111,6 @@ fun AppNavigation() {
         }
 
         composable(AppRoutes.PROFILE) {
-            // Placeholder for Profile Screen
             PlaceholderScreen(
                 title = "Profile Screen",
                 onBack = { navController.navigateUp() }

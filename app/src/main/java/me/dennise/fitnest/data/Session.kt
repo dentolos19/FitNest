@@ -1,15 +1,36 @@
 package me.dennise.fitnest.data
 
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 
 object Session {
     private var currentUser: User? = null
+    private var sessionManager: SessionManager? = null
 
-    fun loginUser(user: User) {
-        currentUser = user
+    fun initialize(manager: SessionManager) {
+        sessionManager = manager
     }
 
-    fun logout() {
+    suspend fun loginUser(user: User) {
+        currentUser = user
+        sessionManager?.saveSession(user)
+    }
+
+    suspend fun logout() {
         currentUser = null
+        withContext(Dispatchers.IO) {
+            sessionManager?.clearSession()
+        }
+    }
+
+    suspend fun restoreSession(): User? {
+        if (currentUser != null) {
+            return currentUser
+        }
+
+        val user = sessionManager?.restoreSession()
+        currentUser = user
+        return user
     }
 
     fun getCurrentUser(): User? = currentUser

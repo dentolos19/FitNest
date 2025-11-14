@@ -9,6 +9,8 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
+import me.dennise.fitnest.data.Session
+import me.dennise.fitnest.data.SessionManager
 import me.dennise.fitnest.data.User
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -18,8 +20,13 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        val sessionManager = SessionManager(this)
+        Session.initialize(sessionManager)
+
         enableEdgeToEdge()
         initializeDemoData()
+
         setContent {
             AppTheme {
                 AppNavigation()
@@ -33,8 +40,7 @@ class MainActivity : ComponentActivity() {
             val demoUser = userDao.get("TestUser1")
 
             if (demoUser == null) {
-                // Create test user
-                val testUser = User(
+                val user = User(
                     username = "TestUser1",
                     password = "TestPassword1",
                     email = "user@example.com",
@@ -43,7 +49,7 @@ class MainActivity : ComponentActivity() {
                     yearOfBirth = 2007,
                     receiveUpdates = false
                 )
-                userDao.insert(testUser)
+                userDao.insert(user)
             }
         }
     }

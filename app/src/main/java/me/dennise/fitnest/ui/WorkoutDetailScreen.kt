@@ -351,6 +351,7 @@ fun WorkoutDetailScreenPreview() {
         WorkoutDetailContent(
             workout = Workout(
                 id = 1,
+                userId = 1,
                 name = "Morning Run",
                 category = "Cardio",
                 duration = 30,
