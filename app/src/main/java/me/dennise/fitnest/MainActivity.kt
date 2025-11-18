@@ -9,8 +9,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.Session
-import me.dennise.fitnest.data.SessionManager
 import me.dennise.fitnest.data.User
 import me.dennise.fitnest.ui.theme.AppTheme
 

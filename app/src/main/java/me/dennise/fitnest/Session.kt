@@ -1,7 +1,8 @@
-package me.dennise.fitnest.data
+package me.dennise.fitnest
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import me.dennise.fitnest.data.User
 
 object Session {
     private var currentUser: User? = null
@@ -16,7 +17,7 @@ object Session {
         sessionManager?.saveSession(user)
     }
 
-    suspend fun logout() {
+    suspend fun logoutUser() {
         currentUser = null
         withContext(Dispatchers.IO) {
             sessionManager?.clearSession()
@@ -39,4 +40,3 @@ object Session {
 
     fun isLoggedIn(): Boolean = currentUser != null
 }
-

@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.Session
+import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.User
 import me.dennise.fitnest.data.UserRepository
 

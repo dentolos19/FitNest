@@ -1,13 +1,15 @@
-package me.dennise.fitnest.data
+package me.dennise.fitnest
 
 import android.content.Context
 import android.content.SharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
+import me.dennise.fitnest.data.AppDatabase
+import me.dennise.fitnest.data.User
 
 class SessionManager(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    private val dao = AppDatabase.getDatabase(context).userDao()
+    private val dao = AppDatabase.Companion.getDatabase(context).userDao()
 
     suspend fun saveSession(user: User) {
         withContext(Dispatchers.IO) {

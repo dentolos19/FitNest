@@ -1,32 +1,18 @@
 package me.dennise.fitnest
 
-import androidx.compose.foundation.layout.*
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
-import androidx.compose.material3.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import kotlinx.coroutines.launch
-import me.dennise.fitnest.data.Session
 import me.dennise.fitnest.ui.*
-
-object AppRoutes {
-    const val LOGIN = "login"
-    const val REGISTER = "register"
-    const val HOME = "home"
-    const val PROFILE = "profile"
-    const val ADD_WORKOUT = "add_workout"
-    const val WORKOUT_DETAIL = "workout_detail/{workoutId}"
-
-    fun workoutDetail(workoutId: Int) = "workout_detail/$workoutId"
-}
 
 @Composable
 fun AppNavigation() {
@@ -34,15 +20,15 @@ fun AppNavigation() {
     val scope = rememberCoroutineScope()
 
     var isCheckingSession by remember { mutableStateOf(true) }
-    var startDestination by remember { mutableStateOf(AppRoutes.LOGIN) }
+    var startDestination by remember { mutableStateOf(Routes.LOGIN) }
 
     LaunchedEffect(Unit) {
         scope.launch {
             val user = Session.restoreSession()
             startDestination = if (user != null) {
-                AppRoutes.HOME
+                Routes.HOME
             } else {
-                AppRoutes.LOGIN
+                Routes.LOGIN
             }
             isCheckingSession = false
         }
@@ -59,135 +45,88 @@ fun AppNavigation() {
     }
 
     NavHost(navController = navController, startDestination = startDestination) {
-        composable(AppRoutes.LOGIN) {
+        composable(Routes.LOGIN) {
             LoginScreen(
                 onLoginSuccess = {
                     // Navigate to home/landing screen after successful login
-                    navController.navigate(AppRoutes.HOME) {
-                        popUpTo(AppRoutes.LOGIN) { inclusive = true }
+                    navController.navigate(Routes.HOME) {
+                        popUpTo(Routes.LOGIN) { inclusive = true }
                     }
                 },
                 onRegisterClick = {
                     // Navigate to register screen
-                    navController.navigate(AppRoutes.REGISTER)
+                    navController.navigate(Routes.REGISTER)
                 }
             )
         }
 
-        composable(AppRoutes.REGISTER) {
+        composable(Routes.REGISTER) {
             RegisterScreen(
                 onRegisterSuccess = {
                     // Navigate to home/landing screen after successful registration
-                    navController.navigate(AppRoutes.HOME) {
-                        popUpTo(AppRoutes.REGISTER) { inclusive = true }
+                    navController.navigate(Routes.HOME) {
+                        popUpTo(Routes.REGISTER) { inclusive = true }
                     }
                 },
                 onCancel = {
                     // Navigate back to login screen when cancel is clicked
-                    navController.navigate(AppRoutes.LOGIN) {
-                        popUpTo(AppRoutes.REGISTER) { inclusive = true }
+                    navController.navigate(Routes.LOGIN) {
+                        popUpTo(Routes.REGISTER) { inclusive = true }
                     }
                 }
             )
         }
 
-        composable(AppRoutes.HOME) {
+        composable(Routes.HOME) {
             HomeScreen(
                 onLogout = {
-                    navController.navigate(AppRoutes.LOGIN) {
-                        popUpTo(AppRoutes.HOME) { inclusive = true }
+                    navController.navigate(Routes.LOGIN) {
+                        popUpTo(Routes.HOME) { inclusive = true }
                     }
                 },
                 onViewProfile = {
-                    navController.navigate(AppRoutes.PROFILE)
+                    navController.navigate(Routes.PROFILE)
                 },
                 onAddWorkout = {
-                    navController.navigate(AppRoutes.ADD_WORKOUT)
+                    navController.navigate(Routes.WORKOUT_ADD)
                 },
                 onWorkoutClick = { workoutId ->
-                    navController.navigate(AppRoutes.workoutDetail(workoutId))
+                    navController.navigate(Routes.workoutDetail(workoutId))
                 }
             )
         }
 
-        composable(AppRoutes.PROFILE) {
+        composable(Routes.PROFILE) {
             PlaceholderScreen(
                 title = "Profile Screen",
                 onBack = { navController.navigateUp() }
             )
         }
 
-        composable(AppRoutes.ADD_WORKOUT) {
-            AddWorkoutScreen(
+        composable(Routes.WORKOUT_ADD) {
+            WorkoutAddScreen(
                 onNavigateBack = { navController.navigateUp() },
                 onWorkoutAdded = {
-                    navController.navigate(AppRoutes.HOME) {
-                        popUpTo(AppRoutes.HOME) { inclusive = false }
+                    navController.navigate(Routes.HOME) {
+                        popUpTo(Routes.HOME) { inclusive = false }
                     }
                 }
             )
         }
 
         composable(
-            route = AppRoutes.WORKOUT_DETAIL,
+            route = Routes.WORKOUT_DETAIL,
             arguments = listOf(navArgument("workoutId") { type = NavType.IntType })
         ) { backStackEntry ->
             val workoutId = backStackEntry.arguments?.getInt("workoutId") ?: 0
             WorkoutDetailScreen(
                 workoutId = workoutId,
                 onNavigateBack = {
-                    navController.navigate(AppRoutes.HOME) {
-                        popUpTo(AppRoutes.HOME) { inclusive = true }
+                    navController.navigate(Routes.HOME) {
+                        popUpTo(Routes.HOME) { inclusive = true }
                     }
                 }
             )
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun PlaceholderScreen(
-    title: String,
-    subtitle: String = "",
-    onBack: () -> Unit
-) {
-    Scaffold(
-        topBar = {
-            TopAppBar(
-                title = { Text(title) },
-                navigationIcon = {
-                    IconButton(onClick = onBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                }
-            )
-        }
-    ) { padding ->
-        Box(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(padding),
-            contentAlignment = Alignment.Center
-        ) {
-            Column(
-                horizontalAlignment = Alignment.CenterHorizontally
-            ) {
-                Text(
-                    text = title,
-                    style = MaterialTheme.typography.headlineMedium
-                )
-                if (subtitle.isNotEmpty()) {
-                    Spacer(modifier = Modifier.height(8.dp))
-                    Text(
-                        text = subtitle,
-                        style = MaterialTheme.typography.bodyLarge
-                    )
-                }
-            }
         }
     }
 }

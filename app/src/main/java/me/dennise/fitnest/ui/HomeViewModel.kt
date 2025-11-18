@@ -10,7 +10,7 @@ import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.Workout
 import me.dennise.fitnest.data.WorkoutRepository
-import me.dennise.fitnest.data.Session
+import me.dennise.fitnest.Session
 import java.text.SimpleDateFormat
 import java.util.*
 

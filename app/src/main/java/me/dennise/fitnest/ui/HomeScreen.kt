@@ -17,7 +17,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
-import me.dennise.fitnest.data.Session
+import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.Workout
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -84,7 +84,7 @@ fun HomeScreen(
                                 onClick = {
                                     showMenu = false
                                     scope.launch {
-                                        Session.logout()
+                                        Session.logoutUser()
                                         onLogout()
                                     }
                                 }

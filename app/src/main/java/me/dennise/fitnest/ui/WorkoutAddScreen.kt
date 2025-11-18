@@ -8,9 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Schedule
-import androidx.compose.material.icons.filled.FitnessCenter
-import androidx.compose.material.icons.filled.SelfImprovement
-import androidx.compose.material.icons.filled.DirectionsRun
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -23,12 +20,28 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
+enum class WorkoutCategory(val displayName: String) {
+    CARDIO("Cardio"),
+    STRENGTH("Strength"),
+    FLEXIBILITY_MOBILITY("Flexibility & Mobility"),
+    MIND_BODY_RECOVERY("Mind-Body recovery")
+}
+
+enum class EnjoymentRating(val displayName: String, val emoji: String) {
+    ENERGIZING("Energizing", "⚡"),
+    CALMING("Calming", "😌"),
+    STRESS_RELIEVING("Stress-relieving", "🧘"),
+    MOTIVATING("Motivating", "💪"),
+    EXHAUSTING("Exhausting", "😓"),
+    FRUSTRATING("Frustrating", "😤")
+}
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AddWorkoutScreen(
+fun WorkoutAddScreen(
     onNavigateBack: () -> Unit = {},
     onWorkoutAdded: () -> Unit = {},
-    viewModel: AddWorkoutViewModel = viewModel()
+    viewModel: WorkoutAddViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
     var showCancelDialog by remember { mutableStateOf(false) }
@@ -232,7 +245,7 @@ fun AddWorkoutScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // Date Field (Optional)
-                OutlinedTextField(
+            OutlinedTextField(
                 value = uiState.date,
                 onValueChange = {},
                 label = { Text("Date") },
@@ -363,27 +376,11 @@ fun AddWorkoutScreen(
     }
 }
 
-enum class WorkoutCategory(val displayName: String) {
-    CARDIO("Cardio"),
-    STRENGTH("Strength"),
-    FLEXIBILITY_MOBILITY("Flexibility & Mobility"),
-    MIND_BODY_RECOVERY("Mind-Body recovery")
-}
-
-enum class EnjoymentRating(val displayName: String, val emoji: String) {
-    ENERGIZING("Energizing", "⚡"),
-    CALMING("Calming", "😌"),
-    STRESS_RELIEVING("Stress-relieving", "🧘"),
-    MOTIVATING("Motivating", "💪"),
-    EXHAUSTING("Exhausting", "😓"),
-    FRUSTRATING("Frustrating", "😤")
-}
-
 @Composable
 @Preview(showBackground = true)
-fun AddWorkoutScreenPreview() {
+fun WorkoutAddPreview() {
     AppTheme {
-        AddWorkoutScreen()
+        WorkoutAddScreen()
     }
 }
 
