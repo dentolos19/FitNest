@@ -28,7 +28,7 @@ fun WorkoutDetailScreen(
     onNavigateBack: () -> Unit = {},
     viewModel: WorkoutDetailViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.state.collectAsState()
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showMenu by remember { mutableStateOf(false) }
 

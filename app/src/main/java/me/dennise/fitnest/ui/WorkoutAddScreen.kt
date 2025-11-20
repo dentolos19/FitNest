@@ -31,7 +31,7 @@ fun WorkoutAddScreen(
     onWorkoutAdded: () -> Unit = {},
     viewModel: WorkoutAddViewModel = viewModel()
 ) {
-    val uiState by viewModel.uiState.collectAsState()
+    val uiState by viewModel.state.collectAsState()
     var showCancelDialog by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }

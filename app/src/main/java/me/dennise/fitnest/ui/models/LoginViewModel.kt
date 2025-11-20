@@ -9,11 +9,11 @@ import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.UserRepository
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: UserRepository
+    private val userRepository: UserRepository
 
     init {
         val database = AppDatabase.getDatabase(application)
-        repository = UserRepository(database.userDao())
+        userRepository = UserRepository(database.userDao())
     }
 
     fun login(
@@ -25,7 +25,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         viewModelScope.launch {
             try {
                 // Check database credentials
-                val user = repository.loginUser(username, password)
+                val user = userRepository.loginUser(username, password)
                 if (user != null) {
                     Session.loginUser(user)
                     onSuccess()

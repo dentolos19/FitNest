@@ -10,10 +10,6 @@ import androidx.compose.material.icons.filled.SportsBasketball
 import androidx.compose.ui.graphics.vector.ImageVector
 import me.dennise.fitnest.data.WorkoutCategory
 
-/**
- * Returns the appropriate icon for a given workout category.
- * Supports both the original category names and the new standardized ones.
- */
 fun getWorkoutCategoryIcon(category: String): ImageVector {
     return when (category.lowercase()) {
         // Original categories from landing page

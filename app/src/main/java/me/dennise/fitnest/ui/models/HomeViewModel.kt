@@ -9,8 +9,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.entities.Workout
+import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.WorkoutRepository
+import me.dennise.fitnest.data.entities.Workout
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -42,7 +43,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
             val calendar = Calendar.getInstance()
 
-            // Sample workout 1 - Running
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
@@ -53,11 +53,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "07:00 AM",
                     comments = "Great morning run in the park",
-                    enjoyment = "😊"
+                    enjoyment = EnjoymentRating.ENERGIZING.displayName
                 )
             )
 
-            // Sample workout 2 - Cycling
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
@@ -68,11 +67,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "06:00 PM",
                     comments = "Explored new trails",
-                    enjoyment = "😄"
+                    enjoyment = EnjoymentRating.CALMING.displayName
                 )
             )
 
-            // Sample workout 3 - Yoga
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
@@ -83,11 +81,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "08:00 AM",
                     comments = "Relaxing yoga practice",
-                    enjoyment = "😌"
+                    enjoyment = EnjoymentRating.CALMING.displayName
                 )
             )
 
-            // Sample workout 4 - Swimming
             calendar.add(Calendar.DAY_OF_YEAR, -2)
             workoutRepository.addWorkout(
                 Workout(
@@ -98,11 +95,10 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "05:30 PM",
                     comments = "Improved my technique",
-                    enjoyment = "😃"
+                    enjoyment = EnjoymentRating.MOTIVATING.displayName
                 )
             )
 
-            // Sample workout 5 - Gym
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
@@ -113,7 +109,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "06:00 AM",
                     comments = "Full body workout",
-                    enjoyment = "💪"
+                    enjoyment = EnjoymentRating.EXHAUSTING.displayName
                 )
             )
 

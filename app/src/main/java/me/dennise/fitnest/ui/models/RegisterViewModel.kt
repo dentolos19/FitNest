@@ -6,15 +6,15 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.entities.User
 import me.dennise.fitnest.data.UserRepository
+import me.dennise.fitnest.data.entities.User
 
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {
-    private val repository: UserRepository
+    private val userRepository: UserRepository
 
     init {
-        val database = AppDatabase.Companion.getDatabase(application)
-        repository = UserRepository(database.userDao())
+        val database = AppDatabase.getDatabase(application)
+        userRepository = UserRepository(database.userDao())
     }
 
     fun register(
@@ -31,7 +31,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             try {
                 // Check if username already exists
-                val existingUser = repository.getUser(username)
+                val existingUser = userRepository.getUser(username)
                 if (existingUser != null) {
                     onError("Username already exists")
                     return@launch
@@ -48,10 +48,10 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                     receiveUpdates = receiveUpdates
                 )
 
-                repository.registerUser(user)
+                userRepository.registerUser(user)
 
                 // Get the newly created user with its ID and login
-                val newUser = repository.getUser(username)
+                val newUser = userRepository.getUser(username)
                 if (newUser != null) {
                     Session.loginUser(newUser)
                 }

@@ -14,8 +14,8 @@ import me.dennise.fitnest.ui.states.WorkoutDetailState
 class WorkoutDetailViewModel(application: Application) : AndroidViewModel(application) {
     private val workoutRepository: WorkoutRepository
 
-    private val _uiState = MutableStateFlow(WorkoutDetailState())
-    val uiState: StateFlow<WorkoutDetailState> = _uiState.asStateFlow()
+    private val _state = MutableStateFlow(WorkoutDetailState())
+    val state: StateFlow<WorkoutDetailState> = _state.asStateFlow()
 
     init {
         val database = AppDatabase.getDatabase(application)
@@ -24,9 +24,9 @@ class WorkoutDetailViewModel(application: Application) : AndroidViewModel(applic
 
     fun loadWorkout(workoutId: Int) {
         viewModelScope.launch {
-            _uiState.value = _uiState.value.copy(isLoading = true)
+            _state.value = _state.value.copy(isLoading = true)
             val workout = workoutRepository.getWorkout(workoutId)
-            _uiState.value = _uiState.value.copy(
+            _state.value = _state.value.copy(
                 workout = workout,
                 isLoading = false
             )
@@ -35,9 +35,9 @@ class WorkoutDetailViewModel(application: Application) : AndroidViewModel(applic
 
     fun deleteWorkout() {
         viewModelScope.launch {
-            _uiState.value.workout?.let { workout ->
+            _state.value.workout?.let { workout ->
                 workoutRepository.deleteWorkout(workout)
-                _uiState.value = _uiState.value.copy(isDeleted = true)
+                _state.value = _state.value.copy(isDeleted = true)
             }
         }
     }

@@ -9,7 +9,7 @@ import me.dennise.fitnest.data.entities.User
 
 class SessionManager(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-    private val dao = AppDatabase.Companion.getDatabase(context).userDao()
+    private val dao = AppDatabase.getDatabase(context).userDao()
 
     suspend fun saveSession(user: User) {
         withContext(Dispatchers.IO) {
