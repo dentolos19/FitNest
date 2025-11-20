@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.R
+import me.dennise.fitnest.ui.models.LoginViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
 @Composable

@@ -1,4 +1,4 @@
-package me.dennise.fitnest.ui
+package me.dennise.fitnest.ui.models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,30 +7,20 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.Session
-import me.dennise.fitnest.data.Workout
+import me.dennise.fitnest.data.AppDatabase
+import me.dennise.fitnest.data.EnjoymentRating
+import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.data.WorkoutRepository
+import me.dennise.fitnest.ui.states.WorkoutAddState
 import java.text.SimpleDateFormat
 import java.util.*
-
-data class WorkoutAddUiState(
-    val name: String = "",
-    val category: String = WorkoutCategory.CARDIO.displayName,
-    val duration: String = "",
-    val comments: String = "",
-    val enjoyment: String = EnjoymentRating.ENERGIZING.displayName,
-    val enjoymentIndex: Int = 0,
-    val date: String = "",
-    val time: String = "",
-    val nameError: String? = null
-)
 
 class WorkoutAddViewModel(application: Application) : AndroidViewModel(application) {
     private val workoutRepository: WorkoutRepository
 
-    private val _uiState = MutableStateFlow(WorkoutAddUiState())
-    val uiState: StateFlow<WorkoutAddUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(WorkoutAddState())
+    val uiState: StateFlow<WorkoutAddState> = _uiState.asStateFlow()
 
     init {
         val database = AppDatabase.getDatabase(application)

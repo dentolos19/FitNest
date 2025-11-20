@@ -1,4 +1,4 @@
-package me.dennise.fitnest.ui
+package me.dennise.fitnest.ui.models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -7,10 +7,10 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.Workout
-import me.dennise.fitnest.data.WorkoutRepository
 import me.dennise.fitnest.Session
+import me.dennise.fitnest.data.AppDatabase
+import me.dennise.fitnest.data.entities.Workout
+import me.dennise.fitnest.data.WorkoutRepository
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -18,6 +18,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val workoutRepository: WorkoutRepository
 
     private val _workouts = MutableStateFlow<List<Workout>>(emptyList())
+
     val workouts: StateFlow<List<Workout>> = _workouts.asStateFlow()
 
     init {
@@ -35,7 +36,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 
-    // Add sample workouts for testing - can be called from UI
     fun addSampleWorkouts() {
         viewModelScope.launch {
             val userId = Session.getCurrentUserId() ?: return@launch
@@ -121,4 +121,3 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
         }
     }
 }
-

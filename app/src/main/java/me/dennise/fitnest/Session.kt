@@ -2,7 +2,7 @@ package me.dennise.fitnest
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import me.dennise.fitnest.data.User
+import me.dennise.fitnest.data.entities.User
 
 object Session {
     private var currentUser: User? = null

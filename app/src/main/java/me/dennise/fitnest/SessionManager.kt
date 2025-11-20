@@ -5,7 +5,7 @@ import android.content.SharedPreferences
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.User
+import me.dennise.fitnest.data.entities.User
 
 class SessionManager(context: Context) {
     private val prefs: SharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)

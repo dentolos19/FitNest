@@ -1,19 +1,19 @@
-package me.dennise.fitnest.ui
+package me.dennise.fitnest.ui.models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.launch
-import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.Session
-import me.dennise.fitnest.data.User
+import me.dennise.fitnest.data.AppDatabase
+import me.dennise.fitnest.data.entities.User
 import me.dennise.fitnest.data.UserRepository
 
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {
     private val repository: UserRepository
 
     init {
-        val database = AppDatabase.getDatabase(application)
+        val database = AppDatabase.Companion.getDatabase(application)
         repository = UserRepository(database.userDao())
     }
 

@@ -15,7 +15,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.dennise.fitnest.data.Workout
+import me.dennise.fitnest.data.EnjoymentRating
+import me.dennise.fitnest.data.entities.Workout
+import me.dennise.fitnest.getWorkoutCategoryIcon
+import me.dennise.fitnest.ui.models.WorkoutDetailViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

@@ -1,4 +1,4 @@
-package me.dennise.fitnest.ui
+package me.dennise.fitnest.ui.models
 
 import android.app.Application
 import androidx.lifecycle.AndroidViewModel
@@ -8,20 +8,14 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.Workout
 import me.dennise.fitnest.data.WorkoutRepository
-
-data class WorkoutDetailUiState(
-    val workout: Workout? = null,
-    val isLoading: Boolean = true,
-    val isDeleted: Boolean = false
-)
+import me.dennise.fitnest.ui.states.WorkoutDetailState
 
 class WorkoutDetailViewModel(application: Application) : AndroidViewModel(application) {
     private val workoutRepository: WorkoutRepository
 
-    private val _uiState = MutableStateFlow(WorkoutDetailUiState())
-    val uiState: StateFlow<WorkoutDetailUiState> = _uiState.asStateFlow()
+    private val _uiState = MutableStateFlow(WorkoutDetailState())
+    val uiState: StateFlow<WorkoutDetailState> = _uiState.asStateFlow()
 
     init {
         val database = AppDatabase.getDatabase(application)
@@ -48,4 +42,3 @@ class WorkoutDetailViewModel(application: Application) : AndroidViewModel(applic
         }
     }
 }
-

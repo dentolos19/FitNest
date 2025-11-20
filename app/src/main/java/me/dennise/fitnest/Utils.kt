@@ -1,4 +1,4 @@
-package me.dennise.fitnest.ui
+package me.dennise.fitnest
 
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.DirectionsBike
@@ -8,6 +8,7 @@ import androidx.compose.material.icons.filled.Pool
 import androidx.compose.material.icons.filled.SelfImprovement
 import androidx.compose.material.icons.filled.SportsBasketball
 import androidx.compose.ui.graphics.vector.ImageVector
+import me.dennise.fitnest.data.WorkoutCategory
 
 /**
  * Returns the appropriate icon for a given workout category.

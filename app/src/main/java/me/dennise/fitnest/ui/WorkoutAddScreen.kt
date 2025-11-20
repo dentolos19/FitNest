@@ -18,23 +18,11 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import me.dennise.fitnest.data.WorkoutCategory
+import me.dennise.fitnest.data.EnjoymentRating
+import me.dennise.fitnest.getWorkoutCategoryIcon
+import me.dennise.fitnest.ui.models.WorkoutAddViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
-
-enum class WorkoutCategory(val displayName: String) {
-    CARDIO("Cardio"),
-    STRENGTH("Strength"),
-    FLEXIBILITY_MOBILITY("Flexibility & Mobility"),
-    MIND_BODY_RECOVERY("Mind-Body recovery")
-}
-
-enum class EnjoymentRating(val displayName: String, val emoji: String) {
-    ENERGIZING("Energizing", "⚡"),
-    CALMING("Calming", "😌"),
-    STRESS_RELIEVING("Stress-relieving", "🧘"),
-    MOTIVATING("Motivating", "💪"),
-    EXHAUSTING("Exhausting", "😓"),
-    FRUSTRATING("Frustrating", "😤")
-}
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

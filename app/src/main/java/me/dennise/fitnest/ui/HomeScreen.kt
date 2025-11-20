@@ -5,9 +5,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.FitnessCenter
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.*
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,8 +16,10 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
-import me.dennise.fitnest.data.Workout
+import me.dennise.fitnest.data.entities.Workout
+import me.dennise.fitnest.getWorkoutCategoryIcon
 import me.dennise.fitnest.ui.theme.AppTheme
+import me.dennise.fitnest.ui.models.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -100,12 +100,12 @@ fun HomeScreen(
         }
     ) { innerPadding ->
         if (workouts.isEmpty()) {
-            EmptyWorkoutScreen(
+            EmptyScreen(
                 modifier = Modifier.padding(innerPadding),
                 onAddSampleData = { viewModel.addSampleWorkouts() }
             )
         } else {
-            WorkoutList(
+            WorkoutsScreen(
                 workouts = workouts,
                 onWorkoutClick = onWorkoutClick,
                 modifier = Modifier.padding(innerPadding)
@@ -115,7 +115,7 @@ fun HomeScreen(
 }
 
 @Composable
-fun EmptyWorkoutScreen(
+fun EmptyScreen(
     modifier: Modifier = Modifier,
     onAddSampleData: () -> Unit = {}
 ) {
@@ -154,7 +154,7 @@ fun EmptyWorkoutScreen(
 }
 
 @Composable
-fun WorkoutList(
+fun WorkoutsScreen(
     workouts: List<Workout>,
     onWorkoutClick: (Int) -> Unit,
     modifier: Modifier = Modifier
@@ -257,6 +257,6 @@ fun HomePreview() {
 @Preview(showBackground = true)
 fun EmptyWorkoutPreview() {
     AppTheme {
-        EmptyWorkoutScreen()
+        EmptyScreen()
     }
 }

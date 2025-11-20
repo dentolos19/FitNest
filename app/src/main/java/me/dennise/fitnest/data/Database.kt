@@ -4,6 +4,10 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import me.dennise.fitnest.data.entities.User
+import me.dennise.fitnest.data.entities.UserDao
+import me.dennise.fitnest.data.entities.Workout
+import me.dennise.fitnest.data.entities.WorkoutDao
 
 @Database(entities = [User::class, Workout::class], version = 3, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {

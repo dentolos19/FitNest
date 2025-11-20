@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import me.dennise.fitnest.ui.models.RegisterViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 import java.util.*
 
