@@ -7,7 +7,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -30,21 +30,10 @@ fun RegisterScreen(
     val context = LocalContext.current
     val calendar = Calendar.getInstance()
 
-    var userName by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
-    var confirmPassword by remember { mutableStateOf("") }
-    var confirmPasswordVisible by remember { mutableStateOf(false) }
-    var email by remember { mutableStateOf("") }
-    var selectedGender by remember { mutableStateOf("") }
-    var mobileNumber by remember { mutableStateOf("") }
-    var receiveUpdates by remember { mutableStateOf(false) }
-    var yearOfBirth by remember { mutableStateOf("") }
-
     val datePickerDialog = DatePickerDialog(
         context,
         { _, year, _, _ ->
-            yearOfBirth = year.toString()
+            viewModel.updateYearOfBirth(year.toString())
         },
         calendar.get(Calendar.YEAR),
         calendar.get(Calendar.MONTH),
@@ -70,45 +59,49 @@ fun RegisterScreen(
         ) {
             // User ID Field
             OutlinedTextField(
-                value = userName,
-                onValueChange = { userName = it },
+                value = viewModel.state.userName,
+                onValueChange = viewModel::updateUserName,
                 label = { Text("User ID") },
                 placeholder = { Text("Enter user ID") },
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true
+                singleLine = true,
+                enabled = !viewModel.state.isLoading
             )
 
             // Password Field
             PasswordInput(
-                password = password,
-                onPasswordChange = { password = it },
-                passwordVisible = passwordVisible,
-                onPasswordVisibilityChange = { passwordVisible = it },
+                password = viewModel.state.password,
+                onPasswordChange = viewModel::updatePassword,
+                passwordVisible = viewModel.state.passwordVisible,
+                onPasswordVisibilityChange = { viewModel.togglePasswordVisibility() },
                 label = "Password",
                 placeholder = "Enter password",
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !viewModel.state.isLoading
             )
 
             // Confirm Password Field
             PasswordInput(
-                password = confirmPassword,
-                onPasswordChange = { confirmPassword = it },
-                passwordVisible = confirmPasswordVisible,
-                onPasswordVisibilityChange = { confirmPasswordVisible = it },
+                password = viewModel.state.confirmPassword,
+                onPasswordChange = viewModel::updateConfirmPassword,
+                passwordVisible = viewModel.state.confirmPasswordVisible,
+                onPasswordVisibilityChange = { viewModel.toggleConfirmPasswordVisibility() },
                 label = "Confirm Password",
                 placeholder = "Re-enter password",
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !viewModel.state.isLoading
             )
 
             // Email Field
             OutlinedTextField(
-                value = email,
-                onValueChange = { email = it },
+                value = viewModel.state.email,
+                onValueChange = viewModel::updateEmail,
                 label = { Text("Email") },
                 placeholder = { Text("Enter email") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true
+                singleLine = true,
+                enabled = !viewModel.state.isLoading
             )
 
             // Receive Updates Checkbox
@@ -117,8 +110,9 @@ fun RegisterScreen(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Checkbox(
-                    checked = receiveUpdates,
-                    onCheckedChange = { receiveUpdates = it }
+                    checked = viewModel.state.receiveUpdates,
+                    onCheckedChange = viewModel::updateReceiveUpdates,
+                    enabled = !viewModel.state.isLoading
                 )
                 Text(
                     text = "To receive updates via email",
@@ -128,18 +122,14 @@ fun RegisterScreen(
 
             // Mobile Number Field
             OutlinedTextField(
-                value = mobileNumber,
-                onValueChange = {
-                    // Only allow digits
-                    if (it.all { char -> char.isDigit() }) {
-                        mobileNumber = it
-                    }
-                },
+                value = viewModel.state.mobileNumber,
+                onValueChange = viewModel::updateMobileNumber,
                 label = { Text("Mobile Number") },
                 placeholder = { Text("Enter mobile number") },
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true
+                singleLine = true,
+                enabled = !viewModel.state.isLoading
             )
 
             // Gender Selection
@@ -158,8 +148,9 @@ fun RegisterScreen(
                         verticalAlignment = Alignment.CenterVertically
                     ) {
                         RadioButton(
-                            selected = selectedGender == gender,
-                            onClick = { selectedGender = gender }
+                            selected = viewModel.state.selectedGender == gender,
+                            onClick = { viewModel.updateSelectedGender(gender) },
+                            enabled = !viewModel.state.isLoading
                         )
                         Text(
                             text = gender,
@@ -171,17 +162,21 @@ fun RegisterScreen(
 
             // Year of Birth Picker
             OutlinedTextField(
-                value = yearOfBirth,
+                value = viewModel.state.yearOfBirth,
                 onValueChange = { },
                 label = { Text("Year of Birth") },
                 placeholder = { Text("Select Year of birth") },
                 readOnly = true,
                 modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
-                    TextButton(onClick = { datePickerDialog.show() }) {
+                    TextButton(
+                        onClick = { datePickerDialog.show() },
+                        enabled = !viewModel.state.isLoading
+                    ) {
                         Text("Select")
                     }
-                }
+                },
+                enabled = !viewModel.state.isLoading
             )
 
             Spacer(modifier = Modifier.height(8.dp))
@@ -189,64 +184,27 @@ fun RegisterScreen(
             // Register Button
             Button(
                 onClick = {
-                    // Validate all required fields
-                    when {
-                        userName.isBlank() -> {
-                            Toast.makeText(context, "Please enter user name", Toast.LENGTH_SHORT).show()
+                    viewModel.register(
+                        onSuccess = {
+                            Toast.makeText(context, "Registration successful", Toast.LENGTH_SHORT).show()
+                            onRegisterSuccess()
+                        },
+                        onError = { errorMessage ->
+                            Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
                         }
-
-                        password.isBlank() -> {
-                            Toast.makeText(context, "Please enter password", Toast.LENGTH_SHORT).show()
-                        }
-
-                        confirmPassword.isBlank() -> {
-                            Toast.makeText(context, "Please confirm password", Toast.LENGTH_SHORT).show()
-                        }
-
-                        password != confirmPassword -> {
-                            Toast.makeText(context, "Passwords do not match", Toast.LENGTH_SHORT).show()
-                        }
-
-                        email.isBlank() -> {
-                            Toast.makeText(context, "Please enter email", Toast.LENGTH_SHORT).show()
-                        }
-
-                        selectedGender.isBlank() -> {
-                            Toast.makeText(context, "Please select gender", Toast.LENGTH_SHORT).show()
-                        }
-
-                        mobileNumber.isBlank() -> {
-                            Toast.makeText(context, "Please enter mobile number", Toast.LENGTH_SHORT).show()
-                        }
-
-                        yearOfBirth.isBlank() -> {
-                            Toast.makeText(context, "Please select year of birth", Toast.LENGTH_SHORT).show()
-                        }
-
-                        else -> {
-                            // All validations passed, save details to database
-                            viewModel.register(
-                                username = userName,
-                                password = password,
-                                email = email,
-                                gender = selectedGender,
-                                mobile = mobileNumber,
-                                yearOfBirth = yearOfBirth.toInt(),
-                                receiveUpdates = receiveUpdates,
-                                onSuccess = {
-                                    Toast.makeText(context, "Registration successful", Toast.LENGTH_SHORT).show()
-                                    onRegisterSuccess()
-                                },
-                                onError = { errorMessage ->
-                                    Toast.makeText(context, errorMessage, Toast.LENGTH_SHORT).show()
-                                }
-                            )
-                        }
-                    }
+                    )
                 },
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !viewModel.state.isLoading
             ) {
-                Text("Register")
+                if (viewModel.state.isLoading) {
+                    CircularProgressIndicator(
+                        modifier = Modifier.size(24.dp),
+                        color = MaterialTheme.colorScheme.onPrimary
+                    )
+                } else {
+                    Text("Register")
+                }
             }
         }
     }

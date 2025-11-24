@@ -6,7 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,11 +27,6 @@ fun LoginScreen(
 ) {
     val context = LocalContext.current
 
-    var username by remember { mutableStateOf("") }
-    var password by remember { mutableStateOf("") }
-    var passwordVisible by remember { mutableStateOf(false) }
-    var isLoading by remember { mutableStateOf(false) }
-
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier
@@ -45,7 +40,7 @@ fun LoginScreen(
             // Logo
             Image(
                 painter = painterResource(id = R.drawable.icon),
-                contentDescription = "FitNest Logo",
+                contentDescription = "Logo",
                 modifier = Modifier
                     .size(120.dp)
                     .padding(bottom = 32.dp)
@@ -67,49 +62,36 @@ fun LoginScreen(
                 modifier = Modifier.padding(bottom = 32.dp)
             )
 
-            // Username Field
+            // User ID Field
             OutlinedTextField(
-                value = username,
-                onValueChange = { username = it },
+                value = viewModel.state.username,
+                onValueChange = viewModel::updateUsername,
                 label = { Text("User ID") },
                 placeholder = { Text("Enter your User ID") },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
                 singleLine = true,
-                enabled = !isLoading
+                enabled = !viewModel.state.isLoading
             )
 
             // Password Field
             PasswordInput(
-                password = password,
-                onPasswordChange = { password = it },
-                passwordVisible = passwordVisible,
-                onPasswordVisibilityChange = { passwordVisible = it },
+                password = viewModel.state.password,
+                onPasswordChange = viewModel::updatePassword,
+                passwordVisible = viewModel.state.passwordVisible,
+                onPasswordVisibilityChange = { viewModel.togglePasswordVisibility() },
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 24.dp),
-                enabled = !isLoading
+                enabled = !viewModel.state.isLoading
             )
 
             // Login Button
             Button(
                 onClick = {
-                    if (username.isBlank() || password.isBlank()) {
-                        Toast.makeText(
-                            context,
-                            "Please enter both User ID and Password",
-                            Toast.LENGTH_SHORT
-                        ).show()
-                        return@Button
-                    }
-
-                    isLoading = true
                     viewModel.login(
-                        username = username,
-                        password = password,
                         onSuccess = {
-                            isLoading = false
                             Toast.makeText(
                                 context,
                                 "Login successful!",
@@ -118,7 +100,6 @@ fun LoginScreen(
                             onLoginSuccess()
                         },
                         onError = { errorMessage ->
-                            isLoading = false
                             Toast.makeText(
                                 context,
                                 errorMessage,
@@ -130,9 +111,9 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
-                enabled = !isLoading
+                enabled = !viewModel.state.isLoading
             ) {
-                if (isLoading) {
+                if (viewModel.state.isLoading) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(24.dp),
                         color = MaterialTheme.colorScheme.onPrimary
@@ -150,7 +131,7 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
-                enabled = !isLoading
+                enabled = !viewModel.state.isLoading
             ) {
                 Text("Register")
             }
@@ -169,7 +150,7 @@ fun LoginScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun LoginPreview() {
+fun LoginScreenPreview() {
     AppTheme {
         LoginScreen()
     }
