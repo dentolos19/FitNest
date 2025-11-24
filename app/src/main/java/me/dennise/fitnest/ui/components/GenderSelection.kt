@@ -18,6 +18,7 @@ fun GenderSelection(
     selectedGender: String,
     onGenderSelected: (String) -> Unit,
     enabled: Boolean = true,
+    errorText: String? = null,
     genderOptions: List<String> = listOf("Male", "Female", "Non-Binary", "Prefer Not To Say")
 ) {
     Column(modifier = modifier) {
@@ -42,6 +43,17 @@ fun GenderSelection(
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }
+        }
+
+        if (errorText != null) {
+            Text(
+                text = errorText,
+                color = MaterialTheme.colorScheme.error,
+                style = MaterialTheme.typography.bodySmall,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 16.dp, top = 4.dp)
+            )
         }
     }
 }

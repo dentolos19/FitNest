@@ -25,11 +25,11 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun updateUserName(value: String) {
-        state = state.copy(userName = value)
+        state = state.copy(userName = value, userNameError = null)
     }
 
     fun updatePassword(value: String) {
-        state = state.copy(password = value)
+        state = state.copy(password = value, passwordError = null)
     }
 
     fun togglePasswordVisibility() {
@@ -37,7 +37,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun updateConfirmPassword(value: String) {
-        state = state.copy(confirmPassword = value)
+        state = state.copy(confirmPassword = value, confirmPasswordError = null)
     }
 
     fun toggleConfirmPasswordVisibility() {
@@ -45,7 +45,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun updateEmail(value: String) {
-        state = state.copy(email = value)
+        state = state.copy(email = value, emailError = null)
     }
 
     fun updateSelectedGender(value: String) {
@@ -55,7 +55,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     fun updateMobileNumber(value: String) {
         // Only allow digits
         if (value.all { it.isDigit() }) {
-            state = state.copy(mobileNumber = value)
+            state = state.copy(mobileNumber = value, mobileNumberError = null)
         }
     }
 
@@ -64,54 +64,67 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun updateYearOfBirth(value: String) {
-        state = state.copy(yearOfBirth = value)
+        state = state.copy(yearOfBirth = value, yearOfBirthError = null)
     }
 
     fun register(
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
+        // Clear all previous errors
+        state = state.copy(
+            userNameError = null,
+            passwordError = null,
+            confirmPasswordError = null,
+            emailError = null,
+            genderError = null,
+            mobileNumberError = null,
+            yearOfBirthError = null
+        )
+
+        var hasError = false
+
         // Validate all required fields
-        when {
-            state.userName.isBlank() -> {
-                onError("Please enter user ID")
-                return
-            }
+        if (state.userName.isBlank()) {
+            state = state.copy(userNameError = "User ID is required")
+            hasError = true
+        }
 
-            state.password.isBlank() -> {
-                onError("Please enter password")
-                return
-            }
+        if (state.password.isBlank()) {
+            state = state.copy(passwordError = "Password is required")
+            hasError = true
+        }
 
-            state.confirmPassword.isBlank() -> {
-                onError("Please confirm password")
-                return
-            }
+        if (state.confirmPassword.isBlank()) {
+            state = state.copy(confirmPasswordError = "Please confirm password")
+            hasError = true
+        } else if (state.password != state.confirmPassword) {
+            state = state.copy(confirmPasswordError = "Passwords do not match")
+            hasError = true
+        }
 
-            state.password != state.confirmPassword -> {
-                onError("Passwords do not match")
-                return
-            }
+        if (state.email.isBlank()) {
+            state = state.copy(emailError = "Email is required")
+            hasError = true
+        }
 
-            state.email.isBlank() -> {
-                onError("Please enter email")
-                return
-            }
+        if (state.selectedGender.isBlank()) {
+            state = state.copy(genderError = "Please select a gender")
+            hasError = true
+        }
 
-            state.selectedGender.isBlank() -> {
-                onError("Please select gender")
-                return
-            }
+        if (state.mobileNumber.isBlank()) {
+            state = state.copy(mobileNumberError = "Mobile number is required")
+            hasError = true
+        }
 
-            state.mobileNumber.isBlank() -> {
-                onError("Please enter mobile number")
-                return
-            }
+        if (state.yearOfBirth.isBlank()) {
+            state = state.copy(yearOfBirthError = "Year of birth is required")
+            hasError = true
+        }
 
-            state.yearOfBirth.isBlank() -> {
-                onError("Please select year of birth")
-                return
-            }
+        if (hasError) {
+            return
         }
 
         state = state.copy(isLoading = true)
@@ -121,8 +134,10 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 // Check if username already exists
                 val existingUser = userRepository.getUser(state.userName)
                 if (existingUser != null) {
-                    state = state.copy(isLoading = false)
-                    onError("Username already exists")
+                    state = state.copy(
+                        isLoading = false,
+                        userNameError = "Username already exists"
+                    )
                     return@launch
                 }
 

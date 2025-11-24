@@ -18,6 +18,7 @@ import me.dennise.fitnest.ui.components.BooleanInput
 import me.dennise.fitnest.ui.components.GenderSelection
 import me.dennise.fitnest.ui.components.HeadBar
 import me.dennise.fitnest.ui.components.PasswordInput
+import me.dennise.fitnest.ui.components.TextInput
 import me.dennise.fitnest.ui.models.RegisterViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 import java.util.*
@@ -59,13 +60,13 @@ fun RegisterScreen(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             // User ID Field
-            OutlinedTextField(
+            TextInput(
                 value = viewModel.state.userName,
                 onValueChange = viewModel::updateUserName,
-                label = { Text("User ID") },
-                placeholder = { Text("Enter user ID") },
+                label = "User ID",
+                placeholder = "Enter user ID",
+                errorText = viewModel.state.userNameError,
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
                 enabled = !viewModel.state.isLoading
             )
 
@@ -77,6 +78,7 @@ fun RegisterScreen(
                 onPasswordVisibilityChange = { viewModel.togglePasswordVisibility() },
                 label = "Password",
                 placeholder = "Enter password",
+                errorText = viewModel.state.passwordError,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !viewModel.state.isLoading
             )
@@ -89,19 +91,20 @@ fun RegisterScreen(
                 onPasswordVisibilityChange = { viewModel.toggleConfirmPasswordVisibility() },
                 label = "Confirm Password",
                 placeholder = "Re-enter password",
+                errorText = viewModel.state.confirmPasswordError,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !viewModel.state.isLoading
             )
 
             // Email Field
-            OutlinedTextField(
+            TextInput(
                 value = viewModel.state.email,
                 onValueChange = viewModel::updateEmail,
-                label = { Text("Email") },
-                placeholder = { Text("Enter email") },
+                label = "Email",
+                placeholder = "Enter email",
+                errorText = viewModel.state.emailError,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
                 enabled = !viewModel.state.isLoading
             )
 
@@ -115,14 +118,14 @@ fun RegisterScreen(
             )
 
             // Mobile Number Field
-            OutlinedTextField(
+            TextInput(
                 value = viewModel.state.mobileNumber,
                 onValueChange = viewModel::updateMobileNumber,
-                label = { Text("Mobile Number") },
-                placeholder = { Text("Enter mobile number") },
+                label = "Mobile Number",
+                placeholder = "Enter mobile number",
+                errorText = viewModel.state.mobileNumberError,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
                 enabled = !viewModel.state.isLoading
             )
 
@@ -131,17 +134,20 @@ fun RegisterScreen(
                 modifier = Modifier.fillMaxWidth(),
                 selectedGender = viewModel.state.selectedGender,
                 onGenderSelected = viewModel::updateSelectedGender,
+                errorText = viewModel.state.genderError,
                 enabled = !viewModel.state.isLoading
             )
 
             // Year of Birth Picker
-            OutlinedTextField(
+            TextInput(
                 value = viewModel.state.yearOfBirth,
                 onValueChange = { },
-                label = { Text("Year of Birth") },
-                placeholder = { Text("Select Year of birth") },
+                label = "Year of Birth",
+                placeholder = "Select Year of birth",
+                errorText = viewModel.state.yearOfBirthError,
                 readOnly = true,
                 modifier = Modifier.fillMaxWidth(),
+                enabled = !viewModel.state.isLoading,
                 trailingIcon = {
                     TextButton(
                         onClick = { datePickerDialog.show() },
@@ -149,8 +155,7 @@ fun RegisterScreen(
                     ) {
                         Text("Select")
                     }
-                },
-                enabled = !viewModel.state.isLoading
+                }
             )
 
             Spacer(modifier = Modifier.height(8.dp))

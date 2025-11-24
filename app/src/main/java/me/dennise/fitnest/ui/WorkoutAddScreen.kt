@@ -20,6 +20,7 @@ import me.dennise.fitnest.data.WorkoutCategory
 import me.dennise.fitnest.getWorkoutCategoryIcon
 import me.dennise.fitnest.ui.components.EnjoymentSlider
 import me.dennise.fitnest.ui.components.HeadBar
+import me.dennise.fitnest.ui.components.TextInput
 import me.dennise.fitnest.ui.models.WorkoutAddViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -140,25 +141,14 @@ fun WorkoutAddScreen(
             Spacer(modifier = Modifier.height(32.dp))
 
             // Name Field
-            OutlinedTextField(
+            TextInput(
                 value = uiState.name,
                 onValueChange = { viewModel.updateName(it) },
-                label = { Text("Name") },
-                placeholder = { Text("Enter workout name") },
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true,
-                isError = uiState.nameError != null
+                label = "Name",
+                placeholder = "Enter workout name",
+                errorText = uiState.nameError,
+                modifier = Modifier.fillMaxWidth()
             )
-            if (uiState.nameError != null) {
-                Text(
-                    text = uiState.nameError!!,
-                    color = MaterialTheme.colorScheme.error,
-                    style = MaterialTheme.typography.bodySmall,
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .padding(start = 16.dp, top = 4.dp)
-                )
-            }
 
             Spacer(modifier = Modifier.height(16.dp))
 
@@ -198,24 +188,23 @@ fun WorkoutAddScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // Duration Field (Optional)
-            OutlinedTextField(
+            TextInput(
                 value = uiState.duration,
                 onValueChange = { viewModel.updateDuration(it) },
-                label = { Text("Duration (minutes)") },
-                placeholder = { Text("Optional") },
-                modifier = Modifier.fillMaxWidth(),
+                label = "Duration (minutes)",
+                placeholder = "Optional",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                singleLine = true
+                modifier = Modifier.fillMaxWidth()
             )
 
             Spacer(modifier = Modifier.height(16.dp))
 
             // Date Field (Optional)
-            OutlinedTextField(
+            TextInput(
                 value = uiState.date,
                 onValueChange = {},
-                label = { Text("Date") },
-                placeholder = { Text("Optional") },
+                label = "Date",
+                placeholder = "Optional",
                 readOnly = true,
                 modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
@@ -231,11 +220,11 @@ fun WorkoutAddScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // Time Field (Optional)
-            OutlinedTextField(
+            TextInput(
                 value = uiState.time,
                 onValueChange = {},
-                label = { Text("Time") },
-                placeholder = { Text("Optional") },
+                label = "Time",
+                placeholder = "Optional",
                 readOnly = true,
                 modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
@@ -251,12 +240,13 @@ fun WorkoutAddScreen(
             Spacer(modifier = Modifier.height(16.dp))
 
             // Comments Field (Optional)
-            OutlinedTextField(
+            TextInput(
                 value = uiState.comments,
                 onValueChange = { viewModel.updateComments(it) },
-                label = { Text("Comments") },
-                placeholder = { Text("Enter comments") },
+                label = "Comments",
+                placeholder = "Enter comments",
                 modifier = Modifier.fillMaxWidth(),
+                singleLine = false,
                 minLines = 3,
                 maxLines = 5
             )

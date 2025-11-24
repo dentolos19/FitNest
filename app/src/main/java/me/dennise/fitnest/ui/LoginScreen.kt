@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.R
 import me.dennise.fitnest.ui.components.PasswordInput
+import me.dennise.fitnest.ui.components.TextInput
 import me.dennise.fitnest.ui.models.LoginViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -63,15 +64,15 @@ fun LoginScreen(
             )
 
             // User ID Field
-            OutlinedTextField(
+            TextInput(
                 value = viewModel.state.username,
                 onValueChange = viewModel::updateUsername,
-                label = { Text("User ID") },
-                placeholder = { Text("Enter your User ID") },
+                label = "User ID",
+                placeholder = "Enter your User ID",
+                errorText = viewModel.state.usernameError,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
-                singleLine = true,
                 enabled = !viewModel.state.isLoading
             )
 
@@ -81,6 +82,7 @@ fun LoginScreen(
                 onPasswordChange = viewModel::updatePassword,
                 passwordVisible = viewModel.state.passwordVisible,
                 onPasswordVisibilityChange = { viewModel.togglePasswordVisibility() },
+                errorText = viewModel.state.passwordError,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 24.dp),

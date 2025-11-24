@@ -24,11 +24,11 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
     }
 
     fun updateUsername(value: String) {
-        state = state.copy(username = value)
+        state = state.copy(username = value, usernameError = null)
     }
 
     fun updatePassword(value: String) {
-        state = state.copy(password = value)
+        state = state.copy(password = value, passwordError = null)
     }
 
     fun togglePasswordVisibility() {
@@ -39,9 +39,24 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        // Validate user ID and password inputs
-        if (state.username.isBlank() || state.password.isBlank()) {
-            onError("Please enter both User ID and Password")
+        // Clear previous errors
+        state = state.copy(usernameError = null, passwordError = null)
+
+        var hasError = false
+
+        // Validate user ID
+        if (state.username.isBlank()) {
+            state = state.copy(usernameError = "User ID is required")
+            hasError = true
+        }
+
+        // Validate password
+        if (state.password.isBlank()) {
+            state = state.copy(passwordError = "Password is required")
+            hasError = true
+        }
+
+        if (hasError) {
             return
         }
 
@@ -58,8 +73,10 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                     onSuccess()
                 } else {
                     // Login failure
-                    state = state.copy(isLoading = false)
-                    onError("Invalid username or password")
+                    state = state.copy(
+                        isLoading = false,
+                        passwordError = "Invalid username or password"
+                    )
                 }
             } catch (e: Exception) {
                 state = state.copy(isLoading = false)
