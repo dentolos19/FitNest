@@ -13,13 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.WorkoutCategory
 import me.dennise.fitnest.getWorkoutCategoryIcon
+import me.dennise.fitnest.ui.components.EnjoymentSlider
 import me.dennise.fitnest.ui.components.HeadBar
 import me.dennise.fitnest.ui.models.WorkoutAddViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
@@ -262,63 +261,17 @@ fun WorkoutAddScreen(
                 maxLines = 5
             )
 
-            Spacer(modifier = Modifier.height(24.dp))
-
-            // Enjoyment Rating Section
-            Text(
-                text = "Enjoyment Rating",
-                style = MaterialTheme.typography.titleMedium,
-                fontWeight = FontWeight.Bold,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Text(
-                text = uiState.enjoyment,
-                style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.primary,
-                fontWeight = FontWeight.SemiBold,
-                modifier = Modifier.fillMaxWidth(),
-                textAlign = TextAlign.Center
-            )
-
-            Spacer(modifier = Modifier.height(8.dp))
-
-            Slider(
-                value = uiState.enjoymentIndex.toFloat(),
-                onValueChange = { viewModel.updateEnjoyment(it.toInt()) },
-                valueRange = 0f..5f,
-                steps = 4,
-                modifier = Modifier.fillMaxWidth()
-            )
-
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = EnjoymentRating.entries.first().displayName,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                )
-                Text(
-                    text = EnjoymentRating.entries.last().displayName,
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                )
-            }
-
             Spacer(modifier = Modifier.height(32.dp))
 
-            // Submit Section
-            Text(
-                text = "Add workout",
-                style = MaterialTheme.typography.labelLarge,
+            EnjoymentSlider(
+                enjoymentText = uiState.enjoyment,
+                enjoymentIndex = uiState.enjoymentIndex,
+                onEnjoymentChange = { viewModel.updateEnjoyment(it) },
                 modifier = Modifier.fillMaxWidth()
             )
 
-            Spacer(modifier = Modifier.height(12.dp))
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             Button(
                 onClick = {

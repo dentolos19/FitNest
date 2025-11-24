@@ -8,13 +8,14 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import me.dennise.fitnest.ui.components.BooleanInput
+import me.dennise.fitnest.ui.components.GenderSelection
 import me.dennise.fitnest.ui.components.HeadBar
 import me.dennise.fitnest.ui.components.PasswordInput
 import me.dennise.fitnest.ui.models.RegisterViewModel
@@ -105,20 +106,13 @@ fun RegisterScreen(
             )
 
             // Receive Updates Checkbox
-            Row(
+            BooleanInput(
+                label = "To receive updates via email",
+                checked = viewModel.state.receiveUpdates,
+                onCheckedChange = viewModel::updateReceiveUpdates,
                 modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    checked = viewModel.state.receiveUpdates,
-                    onCheckedChange = viewModel::updateReceiveUpdates,
-                    enabled = !viewModel.state.isLoading
-                )
-                Text(
-                    text = "To receive updates via email",
-                    modifier = Modifier.padding(start = 8.dp)
-                )
-            }
+                enabled = !viewModel.state.isLoading
+            )
 
             // Mobile Number Field
             OutlinedTextField(
@@ -133,32 +127,12 @@ fun RegisterScreen(
             )
 
             // Gender Selection
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = "Gender",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(bottom = 8.dp)
-                )
-
-                val genderOptions = listOf("Male", "Female", "Non-Binary", "Prefer Not To Say")
-
-                genderOptions.forEach { gender ->
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            selected = viewModel.state.selectedGender == gender,
-                            onClick = { viewModel.updateSelectedGender(gender) },
-                            enabled = !viewModel.state.isLoading
-                        )
-                        Text(
-                            text = gender,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                    }
-                }
-            }
+            GenderSelection(
+                modifier = Modifier.fillMaxWidth(),
+                selectedGender = viewModel.state.selectedGender,
+                onGenderSelected = viewModel::updateSelectedGender,
+                enabled = !viewModel.state.isLoading
+            )
 
             // Year of Birth Picker
             OutlinedTextField(
