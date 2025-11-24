@@ -16,6 +16,7 @@ import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import me.dennise.fitnest.ui.components.HeadBar
 import me.dennise.fitnest.ui.models.RegisterViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 import java.util.*
@@ -48,7 +49,15 @@ fun RegisterScreen(
         calendar.get(Calendar.DAY_OF_MONTH)
     )
 
-    Scaffold { innerPadding ->
+    Scaffold(
+        topBar = {
+            HeadBar(
+                title = "Register",
+                canNavigateBack = true,
+                onNavigateBack = onCancel
+            )
+        }
+    ) { innerPadding ->
         Column(
             modifier = Modifier
                 .padding(innerPadding)
@@ -57,18 +66,12 @@ fun RegisterScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            Text(
-                text = "Register",
-                style = MaterialTheme.typography.headlineMedium,
-                modifier = Modifier.padding(bottom = 8.dp)
-            )
-
-            // Username Field
+            // User ID Field
             OutlinedTextField(
                 value = userName,
                 onValueChange = { userName = it },
-                label = { Text("User Name") },
-                placeholder = { Text("Enter user name") },
+                label = { Text("User ID") },
+                placeholder = { Text("Enter user ID") },
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = true
             )
@@ -106,31 +109,19 @@ fun RegisterScreen(
                 singleLine = true
             )
 
-            // Gender Selection
-            Column(modifier = Modifier.fillMaxWidth()) {
-                Text(
-                    text = "Gender",
-                    style = MaterialTheme.typography.bodyLarge,
-                    modifier = Modifier.padding(bottom = 8.dp)
+            // Receive Updates Checkbox
+            Row(
+                modifier = Modifier.fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Checkbox(
+                    checked = receiveUpdates,
+                    onCheckedChange = { receiveUpdates = it }
                 )
-
-                val genderOptions = listOf("Male", "Female", "Non-Binary", "Prefer not to say")
-
-                genderOptions.forEach { gender ->
-                    Row(
-                        modifier = Modifier.fillMaxWidth(),
-                        verticalAlignment = Alignment.CenterVertically
-                    ) {
-                        RadioButton(
-                            selected = selectedGender == gender,
-                            onClick = { selectedGender = gender }
-                        )
-                        Text(
-                            text = gender,
-                            modifier = Modifier.padding(start = 8.dp)
-                        )
-                    }
-                }
+                Text(
+                    text = "To receive updates via email",
+                    modifier = Modifier.padding(start = 8.dp)
+                )
             }
 
             // Mobile Number Field
@@ -149,19 +140,31 @@ fun RegisterScreen(
                 singleLine = true
             )
 
-            // Receive Updates Checkbox
-            Row(
-                modifier = Modifier.fillMaxWidth(),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                Checkbox(
-                    checked = receiveUpdates,
-                    onCheckedChange = { receiveUpdates = it }
-                )
+            // Gender Selection
+            Column(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "To receive updates via email",
-                    modifier = Modifier.padding(start = 8.dp)
+                    text = "Gender",
+                    style = MaterialTheme.typography.bodyLarge,
+                    modifier = Modifier.padding(bottom = 8.dp)
                 )
+
+                val genderOptions = listOf("Male", "Female", "Non-Binary", "Prefer Not To Say")
+
+                genderOptions.forEach { gender ->
+                    Row(
+                        modifier = Modifier.fillMaxWidth(),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        RadioButton(
+                            selected = selectedGender == gender,
+                            onClick = { selectedGender = gender }
+                        )
+                        Text(
+                            text = gender,
+                            modifier = Modifier.padding(start = 8.dp)
+                        )
+                    }
+                }
             }
 
             // Year of Birth Picker
@@ -241,15 +244,7 @@ fun RegisterScreen(
                 },
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text("Submit Registration")
-            }
-
-            // Cancel Button
-            OutlinedButton(
-                onClick = onCancel,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text("Cancel Registration")
+                Text("Register")
             }
         }
     }

@@ -38,7 +38,6 @@ fun LoginScreen(
     var passwordVisible by remember { mutableStateOf(false) }
     var isLoading by remember { mutableStateOf(false) }
 
-
     Scaffold { innerPadding ->
         Column(
             modifier = Modifier

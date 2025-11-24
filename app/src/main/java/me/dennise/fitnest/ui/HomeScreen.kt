@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package me.dennise.fitnest.ui
 
 import androidx.compose.foundation.clickable
@@ -5,7 +7,9 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.*
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.FitnessCenter
+import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -18,10 +22,10 @@ import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.getWorkoutCategoryIcon
-import me.dennise.fitnest.ui.theme.AppTheme
+import me.dennise.fitnest.ui.components.HeadBar
 import me.dennise.fitnest.ui.models.HomeViewModel
+import me.dennise.fitnest.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun HomeScreen(
     onLogout: () -> Unit = {},
@@ -41,19 +45,8 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "FitNest",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                },
+            HeadBar(
+                title = "FitNest",
                 actions = {
                     IconButton(onClick = onAddWorkout) {
                         Icon(
@@ -92,10 +85,6 @@ fun HomeScreen(
                         }
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
             )
         }
     ) { innerPadding ->

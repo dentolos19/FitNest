@@ -5,7 +5,6 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Schedule
 import androidx.compose.material3.*
@@ -18,9 +17,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.dennise.fitnest.data.WorkoutCategory
 import me.dennise.fitnest.data.EnjoymentRating
+import me.dennise.fitnest.data.WorkoutCategory
 import me.dennise.fitnest.getWorkoutCategoryIcon
+import me.dennise.fitnest.ui.components.HeadBar
 import me.dennise.fitnest.ui.models.WorkoutAddViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -115,31 +115,10 @@ fun WorkoutAddScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = "New Workout",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = { showCancelDialog = true }) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+            HeadBar(
+                title = "New Workout",
+                canNavigateBack = true,
+                onNavigateBack = { showCancelDialog = true }
             )
         }
     ) { innerPadding ->

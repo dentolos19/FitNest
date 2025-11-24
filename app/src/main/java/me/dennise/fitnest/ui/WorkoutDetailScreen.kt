@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.MoreVert
 import androidx.compose.material3.*
@@ -18,6 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.getWorkoutCategoryIcon
+import me.dennise.fitnest.ui.components.HeadBar
 import me.dennise.fitnest.ui.models.WorkoutDetailViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -70,27 +70,10 @@ fun WorkoutDetailScreen(
 
     Scaffold(
         topBar = {
-            TopAppBar(
-                title = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
-                        contentAlignment = Alignment.Center
-                    ) {
-                        Text(
-                            text = uiState.workout?.name ?: "Workout Details",
-                            style = MaterialTheme.typography.titleLarge,
-                            fontWeight = FontWeight.Bold
-                        )
-                    }
-                },
-                navigationIcon = {
-                    IconButton(onClick = onNavigateBack) {
-                        Icon(
-                            imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                            contentDescription = "Back"
-                        )
-                    }
-                },
+            HeadBar(
+                title = "Workout Details",
+                canNavigateBack = true,
+                onNavigateBack = onNavigateBack,
                 actions = {
                     Box {
                         IconButton(onClick = { showMenu = true }) {
@@ -118,11 +101,7 @@ fun WorkoutDetailScreen(
                             )
                         }
                     }
-                },
-                colors = TopAppBarDefaults.topAppBarColors(
-                    containerColor = MaterialTheme.colorScheme.primaryContainer,
-                    titleContentColor = MaterialTheme.colorScheme.onPrimaryContainer
-                )
+                }
             )
         }
     ) { innerPadding ->
