@@ -350,4 +350,3 @@ fun WorkoutAddPreview() {
         WorkoutAddScreen()
     }
 }
-

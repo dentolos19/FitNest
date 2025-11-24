@@ -12,11 +12,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.ui.components.HeadBar
+import me.dennise.fitnest.ui.components.PasswordInput
 import me.dennise.fitnest.ui.models.RegisterViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 import java.util.*
@@ -32,7 +32,9 @@ fun RegisterScreen(
 
     var userName by remember { mutableStateOf("") }
     var password by remember { mutableStateOf("") }
+    var passwordVisible by remember { mutableStateOf(false) }
     var confirmPassword by remember { mutableStateOf("") }
+    var confirmPasswordVisible by remember { mutableStateOf(false) }
     var email by remember { mutableStateOf("") }
     var selectedGender by remember { mutableStateOf("") }
     var mobileNumber by remember { mutableStateOf("") }
@@ -77,25 +79,25 @@ fun RegisterScreen(
             )
 
             // Password Field
-            OutlinedTextField(
-                value = password,
-                onValueChange = { password = it },
-                label = { Text("Password") },
-                placeholder = { Text("Enter password") },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true
+            PasswordInput(
+                password = password,
+                onPasswordChange = { password = it },
+                passwordVisible = passwordVisible,
+                onPasswordVisibilityChange = { passwordVisible = it },
+                label = "Password",
+                placeholder = "Enter password",
+                modifier = Modifier.fillMaxWidth()
             )
 
             // Confirm Password Field
-            OutlinedTextField(
-                value = confirmPassword,
-                onValueChange = { confirmPassword = it },
-                label = { Text("Confirm Password") },
-                placeholder = { Text("Enter password") },
-                visualTransformation = PasswordVisualTransformation(),
-                modifier = Modifier.fillMaxWidth(),
-                singleLine = true
+            PasswordInput(
+                password = confirmPassword,
+                onPasswordChange = { confirmPassword = it },
+                passwordVisible = confirmPasswordVisible,
+                onPasswordVisibilityChange = { confirmPasswordVisible = it },
+                label = "Confirm Password",
+                placeholder = "Re-enter password",
+                modifier = Modifier.fillMaxWidth()
             )
 
             // Email Field
