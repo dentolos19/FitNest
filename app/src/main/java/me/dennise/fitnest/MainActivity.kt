@@ -19,12 +19,13 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+        // Initialize session management and demo data
         val sessionManager = SessionManager(this)
         Session.initialize(sessionManager)
-
-        enableEdgeToEdge()
         initializeDemoData()
 
+        // Start user interface
+        enableEdgeToEdge()
         setContent {
             AppTheme {
                 AppNavigation()

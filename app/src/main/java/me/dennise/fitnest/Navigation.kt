@@ -48,7 +48,7 @@ fun AppNavigation() {
         composable(Routes.LOGIN) {
             LoginScreen(
                 onLoginSuccess = {
-                    // Navigate to home/landing screen after successful login
+                    // Navigate to home screen after successful login
                     navController.navigate(Routes.HOME) {
                         popUpTo(Routes.LOGIN) { inclusive = true }
                     }
@@ -63,13 +63,13 @@ fun AppNavigation() {
         composable(Routes.REGISTER) {
             RegisterScreen(
                 onRegisterSuccess = {
-                    // Navigate to home/landing screen after successful registration
+                    // Navigate to home screen after successful registration
                     navController.navigate(Routes.HOME) {
                         popUpTo(Routes.REGISTER) { inclusive = true }
                     }
                 },
                 onCancel = {
-                    // Navigate back to login screen when cancel is clicked
+                    // Navigate back to login screen on cancel
                     navController.navigate(Routes.LOGIN) {
                         popUpTo(Routes.REGISTER) { inclusive = true }
                     }
@@ -85,7 +85,7 @@ fun AppNavigation() {
                     }
                 },
                 onViewProfile = {
-                    navController.navigate(Routes.PROFILE)
+                    navController.navigate(Routes.PROFILE_DETAILS)
                 },
                 onAddWorkout = {
                     navController.navigate(Routes.WORKOUT_ADD)
@@ -96,9 +96,16 @@ fun AppNavigation() {
             )
         }
 
-        composable(Routes.PROFILE) {
+        composable(Routes.PROFILE_DETAILS) {
             PlaceholderScreen(
                 title = "Profile Screen",
+                onBack = { navController.navigateUp() }
+            )
+        }
+
+        composable(Routes.PROFILE_EDIT) {
+            PlaceholderScreen(
+                title = "Edit Profile Screen",
                 onBack = { navController.navigateUp() }
             )
         }
