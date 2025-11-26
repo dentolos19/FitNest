@@ -81,12 +81,7 @@ class WorkoutAddViewModel(application: Application) : AndroidViewModel(applicati
         }
 
         // Get current user ID
-        val userId = Session.getCurrentUserId()
-        if (userId == null) {
-            return false
-        }
-
-        // Category is always selected (has default), so no validation needed
+        val userId = Session.getCurrentUserId() ?: return false
 
         // Save workout
         viewModelScope.launch {

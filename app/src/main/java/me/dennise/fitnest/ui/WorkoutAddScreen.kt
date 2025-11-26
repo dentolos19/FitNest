@@ -19,7 +19,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.data.WorkoutCategory
 import me.dennise.fitnest.getWorkoutCategoryIcon
 import me.dennise.fitnest.ui.components.EnjoymentSlider
-import me.dennise.fitnest.ui.components.HeadBar
+import me.dennise.fitnest.ui.components.AppHeader
 import me.dennise.fitnest.ui.components.TextInput
 import me.dennise.fitnest.ui.models.WorkoutAddViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
@@ -115,7 +115,7 @@ fun WorkoutAddScreen(
 
     Scaffold(
         topBar = {
-            HeadBar(
+            AppHeader(
                 title = "New Workout",
                 canNavigateBack = true,
                 onNavigateBack = { showCancelDialog = true }

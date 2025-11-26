@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.ui.components.BooleanInput
 import me.dennise.fitnest.ui.components.GenderSelection
-import me.dennise.fitnest.ui.components.HeadBar
+import me.dennise.fitnest.ui.components.AppHeader
 import me.dennise.fitnest.ui.components.PasswordInput
 import me.dennise.fitnest.ui.components.TextInput
 import me.dennise.fitnest.ui.models.RegisterViewModel
@@ -44,7 +44,7 @@ fun RegisterScreen(
 
     Scaffold(
         topBar = {
-            HeadBar(
+            AppHeader(
                 title = "Register",
                 canNavigateBack = true,
                 onNavigateBack = onCancel

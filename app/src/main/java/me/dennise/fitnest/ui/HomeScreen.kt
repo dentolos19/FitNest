@@ -22,7 +22,7 @@ import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.getWorkoutCategoryIcon
-import me.dennise.fitnest.ui.components.HeadBar
+import me.dennise.fitnest.ui.components.AppHeader
 import me.dennise.fitnest.ui.models.HomeViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -45,7 +45,7 @@ fun HomeScreen(
 
     Scaffold(
         topBar = {
-            HeadBar(
+            AppHeader(
                 title = "FitNest",
                 actions = {
                     IconButton(onClick = onAddWorkout) {

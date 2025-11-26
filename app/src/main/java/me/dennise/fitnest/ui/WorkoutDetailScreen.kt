@@ -17,7 +17,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.getWorkoutCategoryIcon
-import me.dennise.fitnest.ui.components.HeadBar
+import me.dennise.fitnest.ui.components.AppHeader
 import me.dennise.fitnest.ui.models.WorkoutDetailViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -70,7 +70,7 @@ fun WorkoutDetailScreen(
 
     Scaffold(
         topBar = {
-            HeadBar(
+            AppHeader(
                 title = "Workout Details",
                 canNavigateBack = true,
                 onNavigateBack = onNavigateBack,

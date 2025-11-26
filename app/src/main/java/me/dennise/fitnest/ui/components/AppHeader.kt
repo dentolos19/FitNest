@@ -9,11 +9,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 
 @Composable
-fun HeadBar(
+fun AppHeader(
     title: String,
     canNavigateBack: Boolean = false,
     onNavigateBack: () -> Unit = {},
-    actions: @Composable RowScope.() -> Unit = {} // Slot for buttons like Add/Save/Menu
+    actions: @Composable RowScope.() -> Unit = {}
 ) {
     CenterAlignedTopAppBar(
         title = { Text(text = title) },
