@@ -59,6 +59,9 @@ dependencies {
     implementation("androidx.room:room-ktx:2.8.4")
     ksp("androidx.room:room-compiler:2.8.4")
 
+    // Other Dependencies
+    implementation("io.coil-kt:coil-compose:2.7.0")
+
     // Tests Dependencies
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.3.0")

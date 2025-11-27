@@ -10,12 +10,12 @@ import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.UserRepository
-import me.dennise.fitnest.ui.states.LoginState
+import me.dennise.fitnest.ui.states.LoginUiState
 
 class LoginViewModel(application: Application) : AndroidViewModel(application) {
     private val userRepository: UserRepository
 
-    var state by mutableStateOf(LoginState())
+    var state by mutableStateOf(LoginUiState())
         private set
 
     init {

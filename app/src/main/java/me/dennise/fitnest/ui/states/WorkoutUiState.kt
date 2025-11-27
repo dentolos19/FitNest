@@ -3,7 +3,7 @@ package me.dennise.fitnest.ui.states
 import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.WorkoutCategory
 
-data class WorkoutAddState(
+data class WorkoutUiState(
     val name: String = "",
     val nameError: String? = null,
     val category: String = WorkoutCategory.CARDIO.displayName,

@@ -11,12 +11,12 @@ import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.UserRepository
 import me.dennise.fitnest.data.entities.User
-import me.dennise.fitnest.ui.states.RegisterState
+import me.dennise.fitnest.ui.states.RegisterUiState
 
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {
     private val userRepository: UserRepository
 
-    var state by mutableStateOf(RegisterState())
+    var state by mutableStateOf(RegisterUiState())
         private set
 
     init {

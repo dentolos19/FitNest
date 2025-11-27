@@ -12,15 +12,15 @@ import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.WorkoutRepository
 import me.dennise.fitnest.data.entities.Workout
-import me.dennise.fitnest.ui.states.WorkoutAddState
+import me.dennise.fitnest.ui.states.WorkoutUiState
 import java.text.SimpleDateFormat
 import java.util.*
 
 class WorkoutAddViewModel(application: Application) : AndroidViewModel(application) {
     private val workoutRepository: WorkoutRepository
 
-    private val _state = MutableStateFlow(WorkoutAddState())
-    val state: StateFlow<WorkoutAddState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(WorkoutUiState())
+    val state: StateFlow<WorkoutUiState> = _state.asStateFlow()
 
     init {
         val database = AppDatabase.getDatabase(application)

@@ -9,13 +9,13 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.WorkoutRepository
-import me.dennise.fitnest.ui.states.WorkoutDetailState
+import me.dennise.fitnest.ui.states.WorkoutDetailUiState
 
 class WorkoutDetailViewModel(application: Application) : AndroidViewModel(application) {
     private val workoutRepository: WorkoutRepository
 
-    private val _state = MutableStateFlow(WorkoutDetailState())
-    val state: StateFlow<WorkoutDetailState> = _state.asStateFlow()
+    private val _state = MutableStateFlow(WorkoutDetailUiState())
+    val state: StateFlow<WorkoutDetailUiState> = _state.asStateFlow()
 
     init {
         val database = AppDatabase.getDatabase(application)

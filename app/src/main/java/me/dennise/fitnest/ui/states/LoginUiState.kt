@@ -1,6 +1,6 @@
 package me.dennise.fitnest.ui.states
 
-data class LoginState(
+data class LoginUiState(
     val isLoading: Boolean = false,
     val username: String = "",
     val usernameError: String? = null,
