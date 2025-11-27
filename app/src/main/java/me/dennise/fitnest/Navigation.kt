@@ -97,16 +97,17 @@ fun AppNavigation() {
         }
 
         composable(Routes.PROFILE_DETAILS) {
-            PlaceholderScreen(
-                title = "Profile Screen",
-                onBack = { navController.navigateUp() }
+            ViewProfileScreen(
+                onNavigateBack = { navController.navigateUp() },
+                onEditProfile = {
+                    navController.navigate(Routes.PROFILE_EDIT)
+                }
             )
         }
 
         composable(Routes.PROFILE_EDIT) {
-            PlaceholderScreen(
-                title = "Edit Profile Screen",
-                onBack = { navController.navigateUp() }
+            EditProfileScreen(
+                onNavigateBack = { navController.navigateUp() }
             )
         }
 
