@@ -24,8 +24,8 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         userRepository = UserRepository(database.userDao())
     }
 
-    fun updateUserName(value: String) {
-        state = state.copy(userName = value, userNameError = null)
+    fun updateUsername(value: String) {
+        state = state.copy(username = value, usernameError = null)
     }
 
     fun updatePassword(value: String) {
@@ -73,7 +73,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     ) {
         // Clear all previous errors
         state = state.copy(
-            userNameError = null,
+            usernameError = null,
             passwordError = null,
             confirmPasswordError = null,
             emailError = null,
@@ -85,45 +85,54 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         var hasError = false
 
         // Validate all required fields
-        if (state.userName.isBlank()) {
-            state = state.copy(userNameError = "User ID is required")
+        if (state.username.isBlank()) {
+            state = state.copy(usernameError = "User ID is required")
+            // onError("User ID is required")
             hasError = true
         }
 
         if (state.password.isBlank()) {
             state = state.copy(passwordError = "Password is required")
+            // onError("Password is required")
             hasError = true
         }
 
         if (state.confirmPassword.isBlank()) {
             state = state.copy(confirmPasswordError = "Please confirm password")
+            // onError("Please confirm password")
             hasError = true
         } else if (state.password != state.confirmPassword) {
             state = state.copy(confirmPasswordError = "Passwords do not match")
+            onError("Passwords do not match")
             hasError = true
         }
 
         if (state.email.isBlank()) {
             state = state.copy(emailError = "Email is required")
+            // onError("Email is required")
             hasError = true
         }
 
         if (state.selectedGender.isBlank()) {
             state = state.copy(genderError = "Please select a gender")
+            // onError("Please select a gender")
             hasError = true
         }
 
         if (state.mobileNumber.isBlank()) {
             state = state.copy(mobileNumberError = "Mobile number is required")
+            // onError("Mobile number is required")
             hasError = true
         }
 
         if (state.yearOfBirth.isBlank()) {
             state = state.copy(yearOfBirthError = "Year of birth is required")
+            // onError("Year of birth is required")
             hasError = true
         }
 
         if (hasError) {
+            onError("Please enter all required fields!")
             return
         }
 
@@ -132,18 +141,19 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         viewModelScope.launch {
             try {
                 // Check if username already exists
-                val existingUser = userRepository.getUser(state.userName)
+                val existingUser = userRepository.getUser(state.username)
                 if (existingUser != null) {
                     state = state.copy(
                         isLoading = false,
-                        userNameError = "Username already exists"
+                        usernameError = "Username already exists"
                     )
+                    onError("Username already exists")
                     return@launch
                 }
 
                 // Create and insert new user
                 val user = User(
-                    username = state.userName,
+                    username = state.username,
                     password = state.password,
                     email = state.email,
                     gender = state.selectedGender,
@@ -155,7 +165,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 userRepository.registerUser(user)
 
                 // Get the newly created user with its ID and login
-                val newUser = userRepository.getUser(state.userName)
+                val newUser = userRepository.getUser(state.username)
                 if (newUser != null) {
                     Session.loginUser(newUser)
                 }

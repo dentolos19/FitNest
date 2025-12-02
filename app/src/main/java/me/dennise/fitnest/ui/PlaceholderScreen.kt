@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package me.dennise.fitnest.ui
 
 import androidx.compose.foundation.layout.*

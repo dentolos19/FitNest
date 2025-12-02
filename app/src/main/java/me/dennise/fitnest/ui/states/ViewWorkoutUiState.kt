@@ -2,8 +2,8 @@ package me.dennise.fitnest.ui.states
 
 import me.dennise.fitnest.data.entities.Workout
 
-data class WorkoutDetailUiState(
-    val workout: Workout? = null,
+data class ViewWorkoutUiState(
     val isLoading: Boolean = true,
-    val isDeleted: Boolean = false
+    val isDeleted: Boolean = false,
+    val workout: Workout? = null,
 )

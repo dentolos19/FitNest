@@ -39,7 +39,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         onSuccess: () -> Unit,
         onError: (String) -> Unit
     ) {
-        // Clear previous errors
+        // Clear all previous errors
         state = state.copy(usernameError = null, passwordError = null)
 
         var hasError = false
@@ -47,16 +47,19 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         // Validate user ID
         if (state.username.isBlank()) {
             state = state.copy(usernameError = "User ID is required")
+            // onError("User ID is required")
             hasError = true
         }
 
         // Validate password
         if (state.password.isBlank()) {
             state = state.copy(passwordError = "Password is required")
+            // onError("Password is required")
             hasError = true
         }
 
         if (hasError) {
+            onError("Please enter all required fields!")
             return
         }
 

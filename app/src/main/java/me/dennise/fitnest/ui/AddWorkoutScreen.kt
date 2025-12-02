@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package me.dennise.fitnest.ui
 
 import androidx.compose.foundation.layout.*
@@ -18,20 +20,20 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.data.WorkoutCategory
 import me.dennise.fitnest.getWorkoutCategoryIcon
-import me.dennise.fitnest.ui.components.EnjoymentSlider
 import me.dennise.fitnest.ui.components.AppHeader
+import me.dennise.fitnest.ui.components.EnjoymentSlider
 import me.dennise.fitnest.ui.components.TextInput
-import me.dennise.fitnest.ui.models.WorkoutAddViewModel
+import me.dennise.fitnest.ui.models.AddWorkoutViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WorkoutAddScreen(
+fun AddWorkoutScreen(
     onNavigateBack: () -> Unit = {},
     onWorkoutAdded: () -> Unit = {},
-    viewModel: WorkoutAddViewModel = viewModel()
+    viewModel: AddWorkoutViewModel = viewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
+
     var showCancelDialog by remember { mutableStateOf(false) }
     var showDatePicker by remember { mutableStateOf(false) }
     var showTimePicker by remember { mutableStateOf(false) }
@@ -265,7 +267,7 @@ fun WorkoutAddScreen(
 
             Button(
                 onClick = {
-                    if (viewModel.validateAndSave()) {
+                    if (viewModel.save()) {
                         onWorkoutAdded()
                     }
                 },
@@ -288,8 +290,8 @@ fun WorkoutAddScreen(
 
 @Composable
 @Preview(showBackground = true)
-fun WorkoutAddPreview() {
+fun AddWorkoutPreview() {
     AppTheme {
-        WorkoutAddScreen()
+        AddWorkoutScreen()
     }
 }

@@ -19,7 +19,6 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val workoutRepository: WorkoutRepository
 
     private val _workouts = MutableStateFlow<List<Workout>>(emptyList())
-
     val workouts: StateFlow<List<Workout>> = _workouts.asStateFlow()
 
     init {
@@ -43,6 +42,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
             val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
             val calendar = Calendar.getInstance()
 
+            // Sample Workout 1
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
@@ -57,6 +57,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 )
             )
 
+            // Sample Workout 2
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
@@ -71,6 +72,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 )
             )
 
+            // Sample Workout 3
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(
@@ -85,6 +87,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 )
             )
 
+            // Sample Workout 4
             calendar.add(Calendar.DAY_OF_YEAR, -2)
             workoutRepository.addWorkout(
                 Workout(
@@ -99,6 +102,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 )
             )
 
+            // Sample Workout 5
             calendar.add(Calendar.DAY_OF_YEAR, -1)
             workoutRepository.addWorkout(
                 Workout(

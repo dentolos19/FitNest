@@ -18,15 +18,16 @@ import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.getWorkoutCategoryIcon
 import me.dennise.fitnest.ui.components.AppHeader
-import me.dennise.fitnest.ui.models.WorkoutDetailViewModel
+import me.dennise.fitnest.ui.components.TitleDescription
+import me.dennise.fitnest.ui.models.ViewWorkoutViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun WorkoutDetailScreen(
+fun ViewWorkoutScreen(
     workoutId: Int,
     onNavigateBack: () -> Unit = {},
-    viewModel: WorkoutDetailViewModel = viewModel()
+    viewModel: ViewWorkoutViewModel = viewModel()
 ) {
     val uiState by viewModel.state.collectAsState()
     var showDeleteDialog by remember { mutableStateOf(false) }
@@ -192,7 +193,7 @@ fun WorkoutDetailContent(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Name
-                DetailRow(
+                TitleDescription(
                     label = "Name",
                     value = workout.name
                 )
@@ -200,7 +201,7 @@ fun WorkoutDetailContent(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Category
-                DetailRow(
+                TitleDescription(
                     label = "Category",
                     value = workout.category
                 )
@@ -208,7 +209,7 @@ fun WorkoutDetailContent(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Duration
-                DetailRow(
+                TitleDescription(
                     label = "Duration",
                     value = if (workout.duration != null) "${workout.duration} minutes" else "Not specified"
                 )
@@ -216,7 +217,7 @@ fun WorkoutDetailContent(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Date
-                DetailRow(
+                TitleDescription(
                     label = "Date",
                     value = workout.date ?: "Not specified"
                 )
@@ -224,7 +225,7 @@ fun WorkoutDetailContent(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 // Time
-                DetailRow(
+                TitleDescription(
                     label = "Time",
                     value = workout.time ?: "Not specified"
                 )
@@ -248,7 +249,7 @@ fun WorkoutDetailContent(
                         )
                     }
                 } else {
-                    DetailRow(
+                    TitleDescription(
                         label = "Comments",
                         value = "No comments"
                     )
@@ -279,7 +280,7 @@ fun WorkoutDetailContent(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 // Enjoyment Rating
-                DetailRow(
+                TitleDescription(
                     label = "Enjoyment",
                     value = workout.enjoyment
                 )
@@ -305,30 +306,8 @@ fun WorkoutDetailContent(
 }
 
 @Composable
-fun DetailRow(
-    label: String,
-    value: String,
-    modifier: Modifier = Modifier
-) {
-    Column(modifier = modifier) {
-        Text(
-            text = label,
-            style = MaterialTheme.typography.labelLarge,
-            fontWeight = FontWeight.SemiBold,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
-        )
-        Spacer(modifier = Modifier.height(4.dp))
-        Text(
-            text = value,
-            style = MaterialTheme.typography.bodyLarge,
-            color = MaterialTheme.colorScheme.onSurface
-        )
-    }
-}
-
-@Composable
 @Preview(showBackground = true)
-fun WorkoutDetailScreenPreview() {
+fun ViewWorkoutPreview() {
     AppTheme {
         WorkoutDetailContent(
             workout = Workout(

@@ -61,11 +61,11 @@ fun RegisterScreen(
         ) {
             // User ID Field
             TextInput(
-                value = viewModel.state.userName,
-                onValueChange = viewModel::updateUserName,
+                value = viewModel.state.username,
+                onValueChange = viewModel::updateUsername,
                 label = "User ID",
                 placeholder = "Enter user ID",
-                errorText = viewModel.state.userNameError,
+                errorText = viewModel.state.usernameError,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !viewModel.state.isLoading
             )

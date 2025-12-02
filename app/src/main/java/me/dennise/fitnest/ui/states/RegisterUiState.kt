@@ -2,8 +2,8 @@ package me.dennise.fitnest.ui.states
 
 data class RegisterUiState(
     val isLoading: Boolean = false,
-    val userName: String = "",
-    val userNameError: String? = null,
+    val username: String = "",
+    val usernameError: String? = null,
     val password: String = "",
     val passwordVisible: Boolean = false,
     val passwordError: String? = null,

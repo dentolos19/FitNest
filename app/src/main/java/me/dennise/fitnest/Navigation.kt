@@ -85,7 +85,7 @@ fun AppNavigation() {
                     }
                 },
                 onViewProfile = {
-                    navController.navigate(Routes.PROFILE_DETAILS)
+                    navController.navigate(Routes.PROFILE_DETAIL)
                 },
                 onAddWorkout = {
                     navController.navigate(Routes.WORKOUT_ADD)
@@ -96,7 +96,7 @@ fun AppNavigation() {
             )
         }
 
-        composable(Routes.PROFILE_DETAILS) {
+        composable(Routes.PROFILE_DETAIL) {
             PlaceholderScreen(
                 title = "Profile Screen",
                 onBack = { navController.navigateUp() }
@@ -111,7 +111,7 @@ fun AppNavigation() {
         }
 
         composable(Routes.WORKOUT_ADD) {
-            WorkoutAddScreen(
+            AddWorkoutScreen(
                 onNavigateBack = { navController.navigateUp() },
                 onWorkoutAdded = {
                     navController.navigate(Routes.HOME) {
@@ -126,7 +126,7 @@ fun AppNavigation() {
             arguments = listOf(navArgument("workoutId") { type = NavType.IntType })
         ) { backStackEntry ->
             val workoutId = backStackEntry.arguments?.getInt("workoutId") ?: 0
-            WorkoutDetailScreen(
+            ViewWorkoutScreen(
                 workoutId = workoutId,
                 onNavigateBack = {
                     navController.navigate(Routes.HOME) {
