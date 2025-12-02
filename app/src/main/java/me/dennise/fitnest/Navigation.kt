@@ -96,7 +96,7 @@ fun AppNavigation() {
             )
         }
 
-        composable(Routes.PROFILE_DETAILS) {
+        composable(Routes.PROFILE_DETAIL) {
             ViewProfileScreen(
                 onNavigateBack = { navController.navigateUp() },
                 onEditProfile = {

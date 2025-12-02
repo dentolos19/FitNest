@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.R
 import me.dennise.fitnest.ui.components.AppHeader
+import me.dennise.fitnest.ui.components.TitleDescription
 import me.dennise.fitnest.ui.models.ViewProfileViewModel
 import me.dennise.fitnest.ui.states.ViewProfileUiState
 import me.dennise.fitnest.ui.theme.AppTheme
@@ -107,42 +108,42 @@ fun ProfileDetailContent(
 
                 Spacer(modifier = Modifier.height(16.dp))
 
-                DetailRow(
+                TitleDescription(
                     label = "Username",
                     value = uiState.username
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                DetailRow(
+                TitleDescription(
                     label = "Email",
                     value = uiState.email
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                DetailRow(
+                TitleDescription(
                     label = "Gender",
                     value = uiState.gender
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                DetailRow(
+                TitleDescription(
                     label = "Mobile",
                     value = uiState.mobile
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                DetailRow(
+                TitleDescription(
                     label = "Year of Birth",
                     value = uiState.yearOfBirth.toString()
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                DetailRow(
+                TitleDescription(
                     label = "Receive Updates",
                     value = if (uiState.receiveUpdates) "Yes" else "No"
                 )
