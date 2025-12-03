@@ -39,7 +39,6 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun updateDuration(duration: String) {
-        // Only allow numeric input
         if (duration.isEmpty() || duration.all { it.isDigit() }) {
             _uiState.value = _uiState.value.copy(duration = duration)
         }
@@ -71,33 +70,48 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
         _uiState.value = _uiState.value.copy(time = timeFormat.format(calendar.time))
     }
 
-    fun save(): Boolean {
+    fun save(
+        onSuccess: () -> Unit,
+        onError: (String) -> Unit
+    ) {
         val currentState = _uiState.value
+        var hasError = false
 
-        // Validate name (required)
         if (currentState.name.isBlank()) {
             _uiState.value = _uiState.value.copy(nameError = "Name is required")
-            return false
+            hasError = true
         }
 
-        // Get current user ID
-        val userId = Session.getCurrentUserId() ?: return false
+        if (hasError) {
+            onError("Please enter all required fields!")
+            return
+        }
 
-        // Save workout
+        val userId = Session.getCurrentUserId()
+        if (userId == null) {
+            onError("User is not logged in!")
+            return
+        }
+
+
+
         viewModelScope.launch {
-            val workout = Workout(
-                userId = userId,
-                name = currentState.name,
-                category = currentState.category,
-                duration = currentState.duration.toIntOrNull(),
-                date = currentState.date.ifBlank { null },
-                time = currentState.time.ifBlank { null },
-                comments = currentState.comments.ifBlank { null },
-                enjoyment = currentState.enjoyment
-            )
-            workoutRepository.addWorkout(workout)
+            try {
+                val workout = Workout(
+                    userId = userId,
+                    name = currentState.name,
+                    category = currentState.category,
+                    duration = currentState.duration.toIntOrNull(),
+                    date = currentState.date.ifBlank { null },
+                    time = currentState.time.ifBlank { null },
+                    comments = currentState.comments.ifBlank { null },
+                    enjoyment = currentState.enjoyment
+                )
+                workoutRepository.addWorkout(workout)
+                onSuccess()
+            } catch (e: Exception) {
+                onError("Failed to save workout: ${e.message}")
+            }
         }
-
-        return true
     }
 }

@@ -58,7 +58,7 @@ fun RegisterScreen(
                 .verticalScroll(rememberScrollState()),
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
-            // User ID Field
+            // Username Field
             TextInput(
                 value = uiState.username,
                 onValueChange = viewModel::updateUsername,
@@ -185,13 +185,5 @@ fun RegisterScreen(
                 }
             }
         }
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun RegisterPreview() {
-    AppTheme {
-        RegisterScreen()
     }
 }

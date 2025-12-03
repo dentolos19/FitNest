@@ -88,17 +88,19 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         val currentState = _uiState.value
         var hasError = false
 
-        // Validate all required fields
+        // Validate username
         if (currentState.username.isBlank()) {
             _uiState.update { it.copy(usernameError = "User ID is required") }
             hasError = true
         }
 
+        // Validate password
         if (currentState.password.isBlank()) {
             _uiState.update { it.copy(passwordError = "Password is required") }
             hasError = true
         }
 
+        // Validate and match confirm password
         if (currentState.confirmPassword.isBlank()) {
             _uiState.update { it.copy(confirmPasswordError = "Please confirm password") }
             hasError = true
@@ -108,6 +110,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             hasError = true
         }
 
+        // Validate email
         if (currentState.email.isBlank()) {
             _uiState.update { it.copy(emailError = "Email is required") }
             hasError = true
@@ -116,16 +119,19 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             hasError = true
         }
 
+        // Validate gender
         if (currentState.selectedGender.isBlank()) {
             _uiState.update { it.copy(genderError = "Please select a gender") }
             hasError = true
         }
 
+        // Validate mobile number
         if (currentState.mobileNumber.isBlank()) {
             _uiState.update { it.copy(mobileNumberError = "Mobile number is required") }
             hasError = true
         }
 
+        // Validate year of birth
         if (currentState.yearOfBirth.isBlank()) {
             _uiState.update { it.copy(yearOfBirthError = "Year of birth is required") }
             hasError = true

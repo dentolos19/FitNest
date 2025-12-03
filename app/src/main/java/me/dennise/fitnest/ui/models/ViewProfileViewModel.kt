@@ -12,7 +12,7 @@ class ViewProfileViewModel : ViewModel() {
     private val _uiState = MutableStateFlow(ViewProfileUiState())
     val uiState: StateFlow<ViewProfileUiState> = _uiState.asStateFlow()
 
-    fun loadCurrentUser() {
+    fun loadUser() {
         val user = Session.getCurrentUser()
         if (user != null) {
             _uiState.update {

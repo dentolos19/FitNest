@@ -15,7 +15,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import kotlinx.coroutines.launch
@@ -24,7 +23,6 @@ import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.getWorkoutCategoryIcon
 import me.dennise.fitnest.ui.components.AppHeader
 import me.dennise.fitnest.ui.models.HomeViewModel
-import me.dennise.fitnest.ui.theme.AppTheme
 
 @Composable
 fun HomeScreen(
@@ -214,22 +212,5 @@ fun WorkoutItem(
                 color = MaterialTheme.colorScheme.primary
             )
         }
-    }
-}
-
-
-@Composable
-@Preview(showBackground = true)
-fun HomePreview() {
-    AppTheme {
-        HomeScreen()
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun EmptyWorkoutPreview() {
-    AppTheme {
-        EmptyScreen()
     }
 }

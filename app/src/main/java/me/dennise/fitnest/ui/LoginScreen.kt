@@ -13,14 +13,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.R
 import me.dennise.fitnest.ui.components.PasswordInput
 import me.dennise.fitnest.ui.components.TextInput
 import me.dennise.fitnest.ui.models.LoginViewModel
-import me.dennise.fitnest.ui.theme.AppTheme
 
 @Composable
 fun LoginScreen(
@@ -66,7 +64,7 @@ fun LoginScreen(
                 modifier = Modifier.padding(bottom = 32.dp)
             )
 
-            // User ID Field
+            // Username Field
             TextInput(
                 value = uiState.username,
                 onValueChange = viewModel::updateUsername,
@@ -150,13 +148,5 @@ fun LoginScreen(
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun LoginScreenPreview() {
-    AppTheme {
-        LoginScreen()
     }
 }

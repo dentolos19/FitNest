@@ -15,16 +15,17 @@ import me.dennise.fitnest.ui.states.EditProfileUiState
 
 class EditProfileViewModel(application: Application) : AndroidViewModel(application) {
     private val userRepository: UserRepository
+
     private val _uiState = MutableStateFlow(EditProfileUiState())
     val uiState: StateFlow<EditProfileUiState> = _uiState.asStateFlow()
 
     init {
         val database = AppDatabase.getDatabase(application)
         userRepository = UserRepository(database.userDao())
-        loadInitialData()
+        loadProfile()
     }
 
-    private fun loadInitialData() {
+    private fun loadProfile() {
         val user = Session.getCurrentUser()
         if (user != null) {
             _uiState.update {

@@ -13,7 +13,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.ui.components.AppHeader
@@ -21,7 +20,6 @@ import me.dennise.fitnest.ui.components.Avatar
 import me.dennise.fitnest.ui.components.TitleDescription
 import me.dennise.fitnest.ui.models.ViewProfileViewModel
 import me.dennise.fitnest.ui.states.ViewProfileUiState
-import me.dennise.fitnest.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -33,7 +31,7 @@ fun ViewProfileScreen(
     val uiState by viewModel.uiState.collectAsState()
 
     LaunchedEffect(Unit) {
-        viewModel.loadCurrentUser()
+        viewModel.loadUser()
     }
 
     Scaffold(
@@ -137,22 +135,5 @@ fun ProfileDetailContent(
                 )
             }
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun ViewProfileScreenPreview() {
-    AppTheme {
-        ProfileDetailContent(
-            uiState = ViewProfileUiState(
-                username = "dennise",
-                email = "dennise@example.com",
-                gender = "Female",
-                mobile = "1234567890",
-                yearOfBirth = 1990,
-                receiveUpdates = true
-            )
-        )
     }
 }

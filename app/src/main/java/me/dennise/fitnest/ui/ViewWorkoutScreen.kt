@@ -11,7 +11,6 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import me.dennise.fitnest.data.EnjoymentRating
@@ -20,7 +19,6 @@ import me.dennise.fitnest.getWorkoutCategoryIcon
 import me.dennise.fitnest.ui.components.AppHeader
 import me.dennise.fitnest.ui.components.LabelValue
 import me.dennise.fitnest.ui.models.ViewWorkoutViewModel
-import me.dennise.fitnest.ui.theme.AppTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -161,7 +159,6 @@ fun WorkoutDetailContent(
             .verticalScroll(rememberScrollState())
             .padding(16.dp)
     ) {
-        // Workout Details Card with Icon
         Card(
             modifier = Modifier.fillMaxWidth(),
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
@@ -174,7 +171,6 @@ fun WorkoutDetailContent(
                 horizontalArrangement = Arrangement.spacedBy(16.dp),
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                // Workout Icon (centered vertically)
                 Icon(
                     imageVector = getWorkoutCategoryIcon(workout.category),
                     contentDescription = workout.category,
@@ -182,7 +178,6 @@ fun WorkoutDetailContent(
                     tint = MaterialTheme.colorScheme.primary
                 )
 
-                // Workout Details
                 Column(
                     modifier = Modifier.weight(1f),
                     verticalArrangement = Arrangement.spacedBy(4.dp)
@@ -216,7 +211,6 @@ fun WorkoutDetailContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Rating Details Section - Full Width
         Card(
             modifier = Modifier.fillMaxWidth(),
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
@@ -257,25 +251,5 @@ fun WorkoutDetailContent(
         }
 
         Spacer(modifier = Modifier.height(32.dp))
-    }
-}
-
-@Composable
-@Preview(showBackground = true)
-fun ViewWorkoutPreview() {
-    AppTheme {
-        WorkoutDetailContent(
-            workout = Workout(
-                id = 1,
-                userId = 1,
-                name = "Morning Run",
-                category = "Cardio",
-                duration = 30,
-                date = "Nov 13, 2025",
-                time = "07:00 AM",
-                comments = "Great workout! Felt energized after.",
-                enjoyment = "Energizing"
-            )
-        )
     }
 }

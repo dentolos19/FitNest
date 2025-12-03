@@ -46,7 +46,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
         val currentState = _uiState.value
         var hasError = false
 
-        // Validate user ID
+        // Validate username
         if (currentState.username.isBlank()) {
             _uiState.update { it.copy(usernameError = "User ID is required") }
             hasError = true
