@@ -19,8 +19,8 @@ import java.util.*
 class AddWorkoutViewModel(application: Application) : AndroidViewModel(application) {
     private val workoutRepository: WorkoutRepository
 
-    private val _state = MutableStateFlow(AddWorkoutUiState())
-    val state: StateFlow<AddWorkoutUiState> = _state.asStateFlow()
+    private val _uiState = MutableStateFlow(AddWorkoutUiState())
+    val uiState: StateFlow<AddWorkoutUiState> = _uiState.asStateFlow()
 
     init {
         val database = AppDatabase.getDatabase(application)
@@ -28,30 +28,30 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun updateName(name: String) {
-        _state.value = _state.value.copy(
+        _uiState.value = _uiState.value.copy(
             name = name,
             nameError = null
         )
     }
 
     fun updateCategory(category: String) {
-        _state.value = _state.value.copy(category = category)
+        _uiState.value = _uiState.value.copy(category = category)
     }
 
     fun updateDuration(duration: String) {
         // Only allow numeric input
         if (duration.isEmpty() || duration.all { it.isDigit() }) {
-            _state.value = _state.value.copy(duration = duration)
+            _uiState.value = _uiState.value.copy(duration = duration)
         }
     }
 
     fun updateComments(comments: String) {
-        _state.value = _state.value.copy(comments = comments)
+        _uiState.value = _uiState.value.copy(comments = comments)
     }
 
     fun updateEnjoyment(index: Int) {
         val enjoymentRating = EnjoymentRating.entries[index]
-        _state.value = _state.value.copy(
+        _uiState.value = _uiState.value.copy(
             enjoyment = enjoymentRating.label,
             enjoymentIndex = index
         )
@@ -60,7 +60,7 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
     fun updateDate(dateMillis: Long) {
         val dateFormat = SimpleDateFormat("MMM dd, yyyy", Locale.getDefault())
         val date = Date(dateMillis)
-        _state.value = _state.value.copy(date = dateFormat.format(date))
+        _uiState.value = _uiState.value.copy(date = dateFormat.format(date))
     }
 
     fun updateTime(hour: Int, minute: Int) {
@@ -68,15 +68,15 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
         calendar.set(Calendar.HOUR_OF_DAY, hour)
         calendar.set(Calendar.MINUTE, minute)
         val timeFormat = SimpleDateFormat("hh:mm a", Locale.getDefault())
-        _state.value = _state.value.copy(time = timeFormat.format(calendar.time))
+        _uiState.value = _uiState.value.copy(time = timeFormat.format(calendar.time))
     }
 
     fun save(): Boolean {
-        val state = _state.value
+        val currentState = _uiState.value
 
         // Validate name (required)
-        if (state.name.isBlank()) {
-            _state.value = _state.value.copy(nameError = "Name is required")
+        if (currentState.name.isBlank()) {
+            _uiState.value = _uiState.value.copy(nameError = "Name is required")
             return false
         }
 
@@ -87,13 +87,13 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
         viewModelScope.launch {
             val workout = Workout(
                 userId = userId,
-                name = state.name,
-                category = state.category,
-                duration = state.duration.toIntOrNull(),
-                date = state.date.ifBlank { null },
-                time = state.time.ifBlank { null },
-                comments = state.comments.ifBlank { null },
-                enjoyment = state.enjoyment
+                name = currentState.name,
+                category = currentState.category,
+                duration = currentState.duration.toIntOrNull(),
+                date = currentState.date.ifBlank { null },
+                time = currentState.time.ifBlank { null },
+                comments = currentState.comments.ifBlank { null },
+                enjoyment = currentState.enjoyment
             )
             workoutRepository.addWorkout(workout)
         }

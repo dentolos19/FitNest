@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
@@ -13,14 +14,15 @@ import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.WorkoutCategory
 import me.dennise.fitnest.data.WorkoutRepository
 import me.dennise.fitnest.data.entities.Workout
+import me.dennise.fitnest.ui.states.HomeUiState
 import java.text.SimpleDateFormat
 import java.util.*
 
 class HomeViewModel(application: Application) : AndroidViewModel(application) {
     private val workoutRepository: WorkoutRepository
 
-    private val _workouts = MutableStateFlow<List<Workout>>(emptyList())
-    val workouts: StateFlow<List<Workout>> = _workouts.asStateFlow()
+    private val _uiState = MutableStateFlow(HomeUiState())
+    val uiState: StateFlow<HomeUiState> = _uiState.asStateFlow()
 
     init {
         val database = AppDatabase.getDatabase(application)
@@ -30,9 +32,13 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
 
     fun loadWorkouts() {
         viewModelScope.launch {
+            _uiState.update { it.copy(isLoading = true) }
             val userId = Session.getCurrentUserId()
             if (userId != null) {
-                _workouts.value = workoutRepository.getWorkouts(userId)
+                val workouts = workoutRepository.getWorkouts(userId)
+                _uiState.update { it.copy(workouts = workouts, isLoading = false) }
+            } else {
+                _uiState.update { it.copy(isLoading = false) }
             }
         }
     }

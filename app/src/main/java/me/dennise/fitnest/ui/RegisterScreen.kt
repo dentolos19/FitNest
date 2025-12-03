@@ -8,6 +8,8 @@ import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
@@ -26,6 +28,7 @@ fun RegisterScreen(
     viewModel: RegisterViewModel = viewModel()
 ) {
     val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
     val calendar = Calendar.getInstance()
 
     val datePickerDialog = DatePickerDialog(
@@ -57,97 +60,97 @@ fun RegisterScreen(
         ) {
             // User ID Field
             TextInput(
-                value = viewModel.state.username,
+                value = uiState.username,
                 onValueChange = viewModel::updateUsername,
                 label = "User ID",
                 placeholder = "Enter user ID",
-                errorText = viewModel.state.usernameError,
+                errorText = uiState.usernameError,
                 modifier = Modifier.fillMaxWidth(),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             )
 
             // Password Field
             PasswordInput(
-                password = viewModel.state.password,
+                password = uiState.password,
                 onPasswordChange = viewModel::updatePassword,
-                passwordVisible = viewModel.state.passwordVisible,
+                passwordVisible = uiState.passwordVisible,
                 onPasswordVisibilityChange = { viewModel.togglePasswordVisibility() },
                 label = "Password",
                 placeholder = "Enter password",
-                errorText = viewModel.state.passwordError,
+                errorText = uiState.passwordError,
                 modifier = Modifier.fillMaxWidth(),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             )
 
             // Confirm Password Field
             PasswordInput(
-                password = viewModel.state.confirmPassword,
+                password = uiState.confirmPassword,
                 onPasswordChange = viewModel::updateConfirmPassword,
-                passwordVisible = viewModel.state.confirmPasswordVisible,
+                passwordVisible = uiState.confirmPasswordVisible,
                 onPasswordVisibilityChange = { viewModel.toggleConfirmPasswordVisibility() },
                 label = "Confirm Password",
                 placeholder = "Re-enter password",
-                errorText = viewModel.state.confirmPasswordError,
+                errorText = uiState.confirmPasswordError,
                 modifier = Modifier.fillMaxWidth(),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             )
 
             // Email Field
             TextInput(
-                value = viewModel.state.email,
+                value = uiState.email,
                 onValueChange = viewModel::updateEmail,
                 label = "Email",
                 placeholder = "Enter email",
-                errorText = viewModel.state.emailError,
+                errorText = uiState.emailError,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
                 modifier = Modifier.fillMaxWidth(),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             )
 
             // Receive Updates Checkbox
             BooleanInput(
                 label = "To receive updates via email",
-                checked = viewModel.state.receiveUpdates,
+                checked = uiState.receiveUpdates,
                 onCheckedChange = viewModel::updateReceiveUpdates,
-                enabled = !viewModel.state.isLoading,
+                enabled = !uiState.isLoading,
                 modifier = Modifier.fillMaxWidth()
             )
 
             // Mobile Number Field
             TextInput(
-                value = viewModel.state.mobileNumber,
+                value = uiState.mobileNumber,
                 onValueChange = viewModel::updateMobileNumber,
                 label = "Mobile Number",
                 placeholder = "Enter mobile number",
-                errorText = viewModel.state.mobileNumberError,
+                errorText = uiState.mobileNumberError,
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth(),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             )
 
             // Gender Selection
             GenderSelection(
                 modifier = Modifier.fillMaxWidth(),
-                selectedGender = viewModel.state.selectedGender,
+                selectedGender = uiState.selectedGender,
                 onGenderSelected = viewModel::updateSelectedGender,
-                errorText = viewModel.state.genderError,
-                enabled = !viewModel.state.isLoading
+                errorText = uiState.genderError,
+                enabled = !uiState.isLoading
             )
 
             // Year of Birth Picker
             TextInput(
-                value = viewModel.state.yearOfBirth,
+                value = uiState.yearOfBirth,
                 onValueChange = { },
                 label = "Year of Birth",
                 placeholder = "Select Year of birth",
-                errorText = viewModel.state.yearOfBirthError,
+                errorText = uiState.yearOfBirthError,
                 readOnly = true,
                 modifier = Modifier.fillMaxWidth(),
-                enabled = !viewModel.state.isLoading,
+                enabled = !uiState.isLoading,
                 trailingIcon = {
                     TextButton(
                         onClick = { datePickerDialog.show() },
-                        enabled = !viewModel.state.isLoading
+                        enabled = !uiState.isLoading
                     ) {
                         Text("Select")
                     }
@@ -170,9 +173,9 @@ fun RegisterScreen(
                     )
                 },
                 modifier = Modifier.fillMaxWidth(),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             ) {
-                if (viewModel.state.isLoading) {
+                if (uiState.isLoading) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(24.dp),
                         color = MaterialTheme.colorScheme.onPrimary

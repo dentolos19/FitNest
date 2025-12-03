@@ -36,7 +36,7 @@ fun HomeScreen(
 ) {
     val scope = rememberCoroutineScope()
 
-    val workouts by viewModel.workouts.collectAsState()
+    val uiState by viewModel.uiState.collectAsState()
     var showMenu by remember { mutableStateOf(false) }
 
     LaunchedEffect(Unit) {
@@ -88,14 +88,14 @@ fun HomeScreen(
             )
         }
     ) { innerPadding ->
-        if (workouts.isEmpty()) {
+        if (uiState.workouts.isEmpty()) {
             EmptyScreen(
                 modifier = Modifier.padding(innerPadding),
                 onAddSampleData = { viewModel.addSampleWorkouts() }
             )
         } else {
             WorkoutsScreen(
-                workouts = workouts,
+                workouts = uiState.workouts,
                 onWorkoutClick = onWorkoutClick,
                 modifier = Modifier.padding(innerPadding)
             )

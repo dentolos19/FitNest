@@ -7,6 +7,8 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
@@ -27,6 +29,7 @@ fun LoginScreen(
     viewModel: LoginViewModel = viewModel()
 ) {
     val context = LocalContext.current
+    val uiState by viewModel.uiState.collectAsState()
 
     Scaffold { innerPadding ->
         Column(
@@ -65,28 +68,28 @@ fun LoginScreen(
 
             // User ID Field
             TextInput(
-                value = viewModel.state.username,
+                value = uiState.username,
                 onValueChange = viewModel::updateUsername,
                 label = "User ID",
                 placeholder = "Enter your User ID",
-                errorText = viewModel.state.usernameError,
+                errorText = uiState.usernameError,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 16.dp),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             )
 
             // Password Field
             PasswordInput(
-                password = viewModel.state.password,
+                password = uiState.password,
                 onPasswordChange = viewModel::updatePassword,
-                passwordVisible = viewModel.state.passwordVisible,
+                passwordVisible = uiState.passwordVisible,
                 onPasswordVisibilityChange = { viewModel.togglePasswordVisibility() },
-                errorText = viewModel.state.passwordError,
+                errorText = uiState.passwordError,
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(bottom = 24.dp),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             )
 
             // Login Button
@@ -113,9 +116,9 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             ) {
-                if (viewModel.state.isLoading) {
+                if (uiState.isLoading) {
                     CircularProgressIndicator(
                         modifier = Modifier.size(24.dp),
                         color = MaterialTheme.colorScheme.onPrimary
@@ -133,7 +136,7 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
-                enabled = !viewModel.state.isLoading
+                enabled = !uiState.isLoading
             ) {
                 Text("Register")
             }

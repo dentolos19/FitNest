@@ -1,11 +1,12 @@
 package me.dennise.fitnest.ui.models
 
 import android.app.Application
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
@@ -16,8 +17,8 @@ import me.dennise.fitnest.ui.states.RegisterUiState
 class RegisterViewModel(application: Application) : AndroidViewModel(application) {
     private val userRepository: UserRepository
 
-    var state by mutableStateOf(RegisterUiState())
-        private set
+    private val _uiState = MutableStateFlow(RegisterUiState())
+    val uiState: StateFlow<RegisterUiState> = _uiState.asStateFlow()
 
     init {
         val database = AppDatabase.getDatabase(application)
@@ -25,46 +26,46 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
     }
 
     fun updateUsername(value: String) {
-        state = state.copy(username = value, usernameError = null)
+        _uiState.update { it.copy(username = value, usernameError = null) }
     }
 
     fun updatePassword(value: String) {
-        state = state.copy(password = value, passwordError = null)
+        _uiState.update { it.copy(password = value, passwordError = null) }
     }
 
     fun togglePasswordVisibility() {
-        state = state.copy(passwordVisible = !state.passwordVisible)
+        _uiState.update { it.copy(passwordVisible = !it.passwordVisible) }
     }
 
     fun updateConfirmPassword(value: String) {
-        state = state.copy(confirmPassword = value, confirmPasswordError = null)
+        _uiState.update { it.copy(confirmPassword = value, confirmPasswordError = null) }
     }
 
     fun toggleConfirmPasswordVisibility() {
-        state = state.copy(confirmPasswordVisible = !state.confirmPasswordVisible)
+        _uiState.update { it.copy(confirmPasswordVisible = !it.confirmPasswordVisible) }
     }
 
     fun updateEmail(value: String) {
-        state = state.copy(email = value, emailError = null)
+        _uiState.update { it.copy(email = value, emailError = null) }
     }
 
     fun updateSelectedGender(value: String) {
-        state = state.copy(selectedGender = value)
+        _uiState.update { it.copy(selectedGender = value) }
     }
 
     fun updateMobileNumber(value: String) {
         // Only allow digits
         if (value.all { it.isDigit() }) {
-            state = state.copy(mobileNumber = value, mobileNumberError = null)
+            _uiState.update { it.copy(mobileNumber = value, mobileNumberError = null) }
         }
     }
 
     fun updateReceiveUpdates(value: Boolean) {
-        state = state.copy(receiveUpdates = value)
+        _uiState.update { it.copy(receiveUpdates = value) }
     }
 
     fun updateYearOfBirth(value: String) {
-        state = state.copy(yearOfBirth = value, yearOfBirthError = null)
+        _uiState.update { it.copy(yearOfBirth = value, yearOfBirthError = null) }
     }
 
     fun register(
@@ -72,65 +73,61 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
         onError: (String) -> Unit
     ) {
         // Clear all previous errors
-        state = state.copy(
-            usernameError = null,
-            passwordError = null,
-            confirmPasswordError = null,
-            emailError = null,
-            genderError = null,
-            mobileNumberError = null,
-            yearOfBirthError = null
-        )
+        _uiState.update {
+            it.copy(
+                usernameError = null,
+                passwordError = null,
+                confirmPasswordError = null,
+                emailError = null,
+                genderError = null,
+                mobileNumberError = null,
+                yearOfBirthError = null
+            )
+        }
 
+        val currentState = _uiState.value
         var hasError = false
 
         // Validate all required fields
-        if (state.username.isBlank()) {
-            state = state.copy(usernameError = "User ID is required")
-            // onError("User ID is required")
+        if (currentState.username.isBlank()) {
+            _uiState.update { it.copy(usernameError = "User ID is required") }
             hasError = true
         }
 
-        if (state.password.isBlank()) {
-            state = state.copy(passwordError = "Password is required")
-            // onError("Password is required")
+        if (currentState.password.isBlank()) {
+            _uiState.update { it.copy(passwordError = "Password is required") }
             hasError = true
         }
 
-        if (state.confirmPassword.isBlank()) {
-            state = state.copy(confirmPasswordError = "Please confirm password")
-            // onError("Please confirm password")
+        if (currentState.confirmPassword.isBlank()) {
+            _uiState.update { it.copy(confirmPasswordError = "Please confirm password") }
             hasError = true
-        } else if (state.password != state.confirmPassword) {
-            state = state.copy(confirmPasswordError = "Passwords do not match")
+        } else if (currentState.password != currentState.confirmPassword) {
+            _uiState.update { it.copy(confirmPasswordError = "Passwords do not match") }
             onError("Passwords do not match")
             hasError = true
         }
 
-        if (state.email.isBlank()) {
-            state = state.copy(emailError = "Email is required")
-            // onError("Email is required")
+        if (currentState.email.isBlank()) {
+            _uiState.update { it.copy(emailError = "Email is required") }
             hasError = true
-        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(state.email).matches()) {
-            state = state.copy(emailError = "Invalid email format")
-            hasError = true
-        }
-
-        if (state.selectedGender.isBlank()) {
-            state = state.copy(genderError = "Please select a gender")
-            // onError("Please select a gender")
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(currentState.email).matches()) {
+            _uiState.update { it.copy(emailError = "Invalid email format") }
             hasError = true
         }
 
-        if (state.mobileNumber.isBlank()) {
-            state = state.copy(mobileNumberError = "Mobile number is required")
-            // onError("Mobile number is required")
+        if (currentState.selectedGender.isBlank()) {
+            _uiState.update { it.copy(genderError = "Please select a gender") }
             hasError = true
         }
 
-        if (state.yearOfBirth.isBlank()) {
-            state = state.copy(yearOfBirthError = "Year of birth is required")
-            // onError("Year of birth is required")
+        if (currentState.mobileNumber.isBlank()) {
+            _uiState.update { it.copy(mobileNumberError = "Mobile number is required") }
+            hasError = true
+        }
+
+        if (currentState.yearOfBirth.isBlank()) {
+            _uiState.update { it.copy(yearOfBirthError = "Year of birth is required") }
             hasError = true
         }
 
@@ -139,44 +136,46 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             return
         }
 
-        state = state.copy(isLoading = true)
+        _uiState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
             try {
                 // Check if username already exists
-                val existingUser = userRepository.getUser(state.username)
+                val existingUser = userRepository.getUser(currentState.username)
                 if (existingUser != null) {
-                    state = state.copy(
-                        isLoading = false,
-                        usernameError = "Username already exists"
-                    )
+                    _uiState.update {
+                        it.copy(
+                            isLoading = false,
+                            usernameError = "Username already exists"
+                        )
+                    }
                     onError("Username already exists")
                     return@launch
                 }
 
                 // Create and insert new user
                 val user = User(
-                    username = state.username,
-                    password = state.password,
-                    email = state.email,
-                    gender = state.selectedGender,
-                    mobile = state.mobileNumber,
-                    yearOfBirth = state.yearOfBirth.toInt(),
-                    receiveUpdates = state.receiveUpdates
+                    username = currentState.username,
+                    password = currentState.password,
+                    email = currentState.email,
+                    gender = currentState.selectedGender,
+                    mobile = currentState.mobileNumber,
+                    yearOfBirth = currentState.yearOfBirth.toInt(),
+                    receiveUpdates = currentState.receiveUpdates
                 )
 
                 userRepository.registerUser(user)
 
                 // Get the newly created user with its ID and login
-                val newUser = userRepository.getUser(state.username)
+                val newUser = userRepository.getUser(currentState.username)
                 if (newUser != null) {
                     Session.login(newUser)
                 }
 
-                state = state.copy(isLoading = false)
+                _uiState.update { it.copy(isLoading = false) }
                 onSuccess()
             } catch (e: Exception) {
-                state = state.copy(isLoading = false)
+                _uiState.update { it.copy(isLoading = false) }
                 onError("Registration failed: ${e.message}")
             }
         }
