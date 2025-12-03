@@ -1,9 +1,7 @@
 package me.dennise.fitnest.ui
 
-import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Edit
@@ -14,15 +12,12 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
-import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.dennise.fitnest.R
 import me.dennise.fitnest.ui.components.AppHeader
+import me.dennise.fitnest.ui.components.Avatar
 import me.dennise.fitnest.ui.components.TitleDescription
 import me.dennise.fitnest.ui.models.ViewProfileViewModel
 import me.dennise.fitnest.ui.states.ViewProfileUiState
@@ -78,14 +73,7 @@ fun ProfileDetailContent(
             .padding(24.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.avatar),
-            contentDescription = "User Avatar",
-            modifier = Modifier
-                .size(100.dp)
-                .clip(CircleShape),
-            contentScale = ContentScale.Crop
-        )
+        Avatar()
 
         Spacer(modifier = Modifier.height(32.dp))
 
