@@ -45,12 +45,12 @@ fun EnjoymentSlider(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "${EnjoymentRating.entries.first().emoji} ${EnjoymentRating.entries.first().displayName}",
+                text = "${EnjoymentRating.entries.first().emoji} ${EnjoymentRating.entries.first().label}",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )
             Text(
-                text = "${EnjoymentRating.entries.last().emoji} ${EnjoymentRating.entries.last().displayName}",
+                text = "${EnjoymentRating.entries.last().emoji} ${EnjoymentRating.entries.last().label}",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )

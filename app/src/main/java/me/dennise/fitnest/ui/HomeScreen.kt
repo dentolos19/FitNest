@@ -77,7 +77,7 @@ fun HomeScreen(
                                 onClick = {
                                     showMenu = false
                                     scope.launch {
-                                        Session.logoutUser()
+                                        Session.logout()
                                         onLogout()
                                     }
                                 }

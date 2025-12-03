@@ -12,12 +12,12 @@ object Session {
         sessionManager = manager
     }
 
-    suspend fun loginUser(user: User) {
+    suspend fun login(user: User) {
         currentUser = user
         sessionManager?.saveSession(user)
     }
 
-    suspend fun logoutUser() {
+    suspend fun logout() {
         currentUser = null
         withContext(Dispatchers.IO) {
             sessionManager?.clearSession()
@@ -31,12 +31,15 @@ object Session {
 
         val user = sessionManager?.restoreSession()
         currentUser = user
+
         return user
     }
 
-    fun getCurrentUser(): User? = currentUser
+    fun getCurrentUser(): User? {
+        return currentUser
+    }
 
-    fun getCurrentUserId(): Int? = currentUser?.id
-
-    fun isLoggedIn(): Boolean = currentUser != null
+    fun getCurrentUserId(): Int? {
+        return currentUser?.id
+    }
 }

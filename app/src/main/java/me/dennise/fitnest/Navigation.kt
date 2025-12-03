@@ -48,13 +48,11 @@ fun AppNavigation() {
         composable(Routes.LOGIN) {
             LoginScreen(
                 onLoginSuccess = {
-                    // Navigate to home screen after successful login
                     navController.navigate(Routes.HOME) {
                         popUpTo(Routes.LOGIN) { inclusive = true }
                     }
                 },
                 onRegisterClick = {
-                    // Navigate to register screen
                     navController.navigate(Routes.REGISTER)
                 }
             )
@@ -63,13 +61,11 @@ fun AppNavigation() {
         composable(Routes.REGISTER) {
             RegisterScreen(
                 onRegisterSuccess = {
-                    // Navigate to home screen after successful registration
                     navController.navigate(Routes.HOME) {
                         popUpTo(Routes.REGISTER) { inclusive = true }
                     }
                 },
                 onCancel = {
-                    // Navigate back to login screen on cancel
                     navController.navigate(Routes.LOGIN) {
                         popUpTo(Routes.REGISTER) { inclusive = true }
                     }

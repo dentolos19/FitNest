@@ -1,6 +1,6 @@
 package me.dennise.fitnest.data
 
-enum class EnjoymentRating(val displayName: String, val emoji: String) {
+enum class EnjoymentRating(val label: String, val emoji: String) {
     ENERGIZING("Energizing", "⚡"),
     CALMING("Calming", "😌"),
     STRESS_RELIEVING("Stress-relieving", "🧘"),

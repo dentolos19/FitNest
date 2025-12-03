@@ -71,7 +71,7 @@ class LoginViewModel(application: Application) : AndroidViewModel(application) {
                 val user = userRepository.loginUser(state.username, state.password)
                 if (user != null) {
                     // Login success
-                    Session.loginUser(user)
+                    Session.login(user)
                     state = state.copy(isLoading = false)
                     onSuccess()
                 } else {

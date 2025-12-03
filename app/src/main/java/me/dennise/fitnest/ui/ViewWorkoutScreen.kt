@@ -239,7 +239,7 @@ fun WorkoutDetailContent(
                 Spacer(modifier = Modifier.height(12.dp))
 
                 val enjoymentRating = EnjoymentRating.entries.find {
-                    it.displayName.equals(workout.enjoyment, ignoreCase = true)
+                    it.label.equals(workout.enjoyment, ignoreCase = true)
                 }
 
                 LabelValue(

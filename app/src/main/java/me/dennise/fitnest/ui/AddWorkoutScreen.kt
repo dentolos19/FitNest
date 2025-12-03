@@ -177,9 +177,9 @@ fun AddWorkoutScreen(
                 ) {
                     WorkoutCategory.entries.forEach { category ->
                         DropdownMenuItem(
-                            text = { Text(category.displayName) },
+                            text = { Text(category.label) },
                             onClick = {
-                                viewModel.updateCategory(category.displayName)
+                                viewModel.updateCategory(category.label)
                                 categoryExpanded = false
                             }
                         )

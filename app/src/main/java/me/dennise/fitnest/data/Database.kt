@@ -9,7 +9,7 @@ import me.dennise.fitnest.data.entities.UserDao
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.data.entities.WorkoutDao
 
-@Database(entities = [User::class, Workout::class], version = 3, exportSchema = false)
+@Database(entities = [User::class, Workout::class], version = 1, exportSchema = false)
 abstract class AppDatabase : RoomDatabase() {
     abstract fun userDao(): UserDao
     abstract fun workoutDao(): WorkoutDao
@@ -25,7 +25,7 @@ abstract class AppDatabase : RoomDatabase() {
                     AppDatabase::class.java,
                     "database"
                 )
-                    .fallbackToDestructiveMigration() // allows version upgrades
+                    .fallbackToDestructiveMigration() // For database migrations
                     .build()
                 INSTANCE = instance
                 instance

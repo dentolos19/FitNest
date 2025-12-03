@@ -103,7 +103,7 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
                         receiveUpdates = _uiState.value.receiveUpdates
                     )
                     userRepository.updateUser(updatedUser)
-                    Session.loginUser(updatedUser)
+                    Session.login(updatedUser)
                     _uiState.update { it.copy(isLoading = false, isSuccess = true) }
                     onSuccess()
                 } else {

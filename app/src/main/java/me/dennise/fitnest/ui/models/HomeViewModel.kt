@@ -10,6 +10,7 @@ import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
 import me.dennise.fitnest.data.EnjoymentRating
+import me.dennise.fitnest.data.WorkoutCategory
 import me.dennise.fitnest.data.WorkoutRepository
 import me.dennise.fitnest.data.entities.Workout
 import java.text.SimpleDateFormat
@@ -48,12 +49,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 Workout(
                     userId = userId,
                     name = "Morning Run",
-                    category = "Running",
+                    category = WorkoutCategory.CARDIO.label,
                     duration = 45,
                     date = dateFormat.format(calendar.time),
                     time = "07:00 AM",
                     comments = "Great morning run in the park",
-                    enjoyment = EnjoymentRating.ENERGIZING.displayName
+                    enjoyment = EnjoymentRating.ENERGIZING.label
                 )
             )
 
@@ -63,12 +64,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 Workout(
                     userId = userId,
                     name = "Evening Cycling",
-                    category = "Cycling",
+                    category = WorkoutCategory.FLEXIBILITY_MOBILITY.label,
                     duration = 60,
                     date = dateFormat.format(calendar.time),
                     time = "06:00 PM",
                     comments = "Explored new trails",
-                    enjoyment = EnjoymentRating.CALMING.displayName
+                    enjoyment = EnjoymentRating.CALMING.label
                 )
             )
 
@@ -78,12 +79,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 Workout(
                     userId = userId,
                     name = "Yoga Session",
-                    category = "Yoga",
+                    category = WorkoutCategory.MIND_BODY_RECOVERY.label,
                     duration = 30,
                     date = dateFormat.format(calendar.time),
                     time = "08:00 AM",
                     comments = "Relaxing yoga practice",
-                    enjoyment = EnjoymentRating.CALMING.displayName
+                    enjoyment = EnjoymentRating.CALMING.label
                 )
             )
 
@@ -93,12 +94,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 Workout(
                     userId = userId,
                     name = "Swimming Laps",
-                    category = "Swimming",
+                    category = WorkoutCategory.CARDIO.label,
                     duration = 40,
                     date = dateFormat.format(calendar.time),
                     time = "05:30 PM",
                     comments = "Improved my technique",
-                    enjoyment = EnjoymentRating.MOTIVATING.displayName
+                    enjoyment = EnjoymentRating.MOTIVATING.label
                 )
             )
 
@@ -108,12 +109,12 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                 Workout(
                     userId = userId,
                     name = "Strength Training",
-                    category = "Gym",
+                    category = WorkoutCategory.STRENGTH.label,
                     duration = 75,
                     date = dateFormat.format(calendar.time),
                     time = "06:00 AM",
                     comments = "Full body workout",
-                    enjoyment = EnjoymentRating.EXHAUSTING.displayName
+                    enjoyment = EnjoymentRating.EXHAUSTING.label
                 )
             )
 

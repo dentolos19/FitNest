@@ -170,7 +170,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
                 // Get the newly created user with its ID and login
                 val newUser = userRepository.getUser(state.username)
                 if (newUser != null) {
-                    Session.loginUser(newUser)
+                    Session.login(newUser)
                 }
 
                 state = state.copy(isLoading = false)

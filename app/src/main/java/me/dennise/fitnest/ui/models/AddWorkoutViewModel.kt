@@ -52,7 +52,7 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
     fun updateEnjoyment(index: Int) {
         val enjoymentRating = EnjoymentRating.entries[index]
         _state.value = _state.value.copy(
-            enjoyment = enjoymentRating.displayName,
+            enjoyment = enjoymentRating.label,
             enjoymentIndex = index
         )
     }
