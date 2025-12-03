@@ -109,8 +109,8 @@ fun RegisterScreen(
                 label = "To receive updates via email",
                 checked = viewModel.state.receiveUpdates,
                 onCheckedChange = viewModel::updateReceiveUpdates,
-                modifier = Modifier.fillMaxWidth(),
-                enabled = !viewModel.state.isLoading
+                enabled = !viewModel.state.isLoading,
+                modifier = Modifier.fillMaxWidth()
             )
 
             // Mobile Number Field

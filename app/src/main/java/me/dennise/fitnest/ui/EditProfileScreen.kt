@@ -122,8 +122,8 @@ fun EditProfileScreen(
                 label = "To receive updates via email",
                 checked = uiState.receiveUpdates,
                 onCheckedChange = viewModel::onReceiveUpdatesChange,
-                modifier = Modifier.fillMaxWidth(),
-                enabled = !uiState.isLoading
+                enabled = !uiState.isLoading,
+                modifier = Modifier.fillMaxWidth()
             )
         }
     }

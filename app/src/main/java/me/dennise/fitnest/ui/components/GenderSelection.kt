@@ -19,8 +19,9 @@ fun GenderSelection(
     onGenderSelected: (String) -> Unit,
     enabled: Boolean = true,
     errorText: String? = null,
-    genderOptions: List<String> = listOf("Male", "Female", "Non-Binary", "Prefer Not To Say")
 ) {
+    val genderOptions = listOf("Male", "Female", "Non-Binary", "Prefer Not To Say")
+
     Column(modifier = modifier) {
         Text(
             text = "Gender",
@@ -34,7 +35,7 @@ fun GenderSelection(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = selectedGender == gender,
+                    selected = gender == selectedGender,
                     onClick = { onGenderSelected(gender) },
                     enabled = enabled
                 )
@@ -45,16 +46,6 @@ fun GenderSelection(
             }
         }
 
-        if (errorText != null) {
-            Text(
-                text = errorText,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, top = 4.dp)
-            )
-        }
+        ErrorText(text = errorText)
     }
 }
-

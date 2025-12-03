@@ -15,10 +15,10 @@ import me.dennise.fitnest.ui.theme.AppTheme
 
 @Composable
 fun EnjoymentSlider(
+    modifier: Modifier = Modifier,
     enjoymentText: String,
     enjoymentIndex: Int,
     onEnjoymentChange: (Int) -> Unit,
-    modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
         Text(

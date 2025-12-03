@@ -2,7 +2,6 @@ package me.dennise.fitnest.ui.components
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Visibility
@@ -13,19 +12,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
 
 @Composable
 fun PasswordInput(
     modifier: Modifier = Modifier,
     label: String = "Password",
     placeholder: String = "Enter your password",
-    enabled: Boolean = true,
-    errorText: String? = null,
     password: String,
     onPasswordChange: (String) -> Unit,
     passwordVisible: Boolean,
     onPasswordVisibilityChange: (Boolean) -> Unit,
+    enabled: Boolean = true,
+    errorText: String? = null,
 ) {
     Column(modifier = modifier) {
         OutlinedTextField(
@@ -49,15 +47,6 @@ fun PasswordInput(
             isError = errorText != null
         )
 
-        if (errorText != null) {
-            Text(
-                text = errorText,
-                color = MaterialTheme.colorScheme.error,
-                style = MaterialTheme.typography.bodySmall,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(start = 16.dp, top = 4.dp)
-            )
-        }
+        ErrorText(text = errorText)
     }
 }

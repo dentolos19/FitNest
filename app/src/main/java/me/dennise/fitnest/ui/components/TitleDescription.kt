@@ -8,14 +8,13 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
 fun TitleDescription(
+    modifier: Modifier = Modifier,
     title: String,
     description: String,
-    modifier: Modifier = Modifier
 ) {
     Column(modifier = modifier) {
         Text(
@@ -27,19 +26,8 @@ fun TitleDescription(
         Spacer(modifier = Modifier.height(4.dp))
         Text(
             text = description,
-            style = MaterialTheme.typography.bodyLarge,
+            style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun TitleDescriptionPreview() {
-    MaterialTheme {
-        TitleDescription(
-            title = "Username",
-            description = "john_doe"
         )
     }
 }

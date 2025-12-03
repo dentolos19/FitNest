@@ -9,13 +9,12 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun LabelValue(
+    modifier: Modifier = Modifier,
     label: String,
     value: String,
-    modifier: Modifier = Modifier
 ) {
     Row(
         modifier = modifier.fillMaxWidth(),
@@ -32,17 +31,6 @@ fun LabelValue(
             text = value,
             style = MaterialTheme.typography.bodyMedium,
             color = MaterialTheme.colorScheme.onSurface
-        )
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun LabelValuePreview() {
-    MaterialTheme {
-        LabelValue(
-            label = "Username",
-            value = "john_doe"
         )
     }
 }
