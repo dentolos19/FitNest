@@ -97,43 +97,43 @@ fun ProfileDetailContent(
                 Spacer(modifier = Modifier.height(16.dp))
 
                 TitleDescription(
-                    label = "Username",
-                    value = uiState.username
+                    title = "Username",
+                    description = uiState.username
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 TitleDescription(
-                    label = "Email",
-                    value = uiState.email
+                    title = "Email",
+                    description = uiState.email
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 TitleDescription(
-                    label = "Gender",
-                    value = uiState.gender
+                    title = "Gender",
+                    description = uiState.gender
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 TitleDescription(
-                    label = "Mobile",
-                    value = uiState.mobile
+                    title = "Mobile",
+                    description = uiState.mobile
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 TitleDescription(
-                    label = "Year of Birth",
-                    value = uiState.yearOfBirth.toString()
+                    title = "Year of Birth",
+                    description = uiState.yearOfBirth.toString()
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
 
                 TitleDescription(
-                    label = "Receive Updates",
-                    value = if (uiState.receiveUpdates) "Yes" else "No"
+                    title = "Receive Updates",
+                    description = if (uiState.receiveUpdates) "Yes" else "No"
                 )
             }
         }
