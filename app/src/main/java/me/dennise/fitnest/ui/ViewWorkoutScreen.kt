@@ -18,7 +18,7 @@ import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.getWorkoutCategoryIcon
 import me.dennise.fitnest.ui.components.AppHeader
-import me.dennise.fitnest.ui.components.TitleDescription
+import me.dennise.fitnest.ui.components.LabelValue
 import me.dennise.fitnest.ui.models.ViewWorkoutViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -159,7 +159,7 @@ fun WorkoutDetailContent(
     Column(
         modifier = modifier
             .verticalScroll(rememberScrollState())
-            .padding(24.dp)
+            .padding(16.dp)
     ) {
         // Workout Details Card with Icon
         Card(
@@ -169,102 +169,46 @@ fun WorkoutDetailContent(
                 containerColor = MaterialTheme.colorScheme.surfaceVariant
             )
         ) {
-            Column(
-                modifier = Modifier.padding(16.dp)
+            Row(
+                modifier = Modifier.padding(16.dp),
+                horizontalArrangement = Arrangement.spacedBy(16.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
-                // Header row with icon and title
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.spacedBy(12.dp)
+                // Workout Icon (centered vertically)
+                Icon(
+                    imageVector = getWorkoutCategoryIcon(workout.category),
+                    contentDescription = workout.category,
+                    modifier = Modifier.size(56.dp),
+                    tint = MaterialTheme.colorScheme.primary
+                )
+
+                // Workout Details
+                Column(
+                    modifier = Modifier.weight(1f),
+                    verticalArrangement = Arrangement.spacedBy(4.dp)
                 ) {
-                    // Icon in a subtle container
-                    Surface(
-                        shape = MaterialTheme.shapes.medium,
-                        color = MaterialTheme.colorScheme.surface,
-                        tonalElevation = 1.dp
-                    ) {
-                        Box(
-                            modifier = Modifier.padding(12.dp),
-                            contentAlignment = Alignment.Center
-                        ) {
-                            Icon(
-                                imageVector = getWorkoutCategoryIcon(workout.category),
-                                contentDescription = workout.category,
-                                modifier = Modifier.size(48.dp),
-                                tint = MaterialTheme.colorScheme.primary
-                            )
-                        }
-                    }
-
-                    Text(
-                        text = "Workout Details",
-                        style = MaterialTheme.typography.titleLarge,
-                        fontWeight = FontWeight.Bold,
-                        color = MaterialTheme.colorScheme.primary
+                Text(
+                    text = workout.name,
+                    style = MaterialTheme.typography.titleLarge,
+                    fontWeight = FontWeight.Bold,
+                    color = MaterialTheme.colorScheme.primary
+                )
+                    Spacer(modifier = Modifier.height(4.dp))
+                    LabelValue(
+                        label = "Category",
+                        value = workout.category
                     )
-                }
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                HorizontalDivider(color = MaterialTheme.colorScheme.outlineVariant)
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                TitleDescription(
-                    title = "Name",
-                    description = workout.name
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                TitleDescription(
-                    title = "Category",
-                    description = workout.category
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                TitleDescription(
-                    title = "Duration",
-                    description = if (workout.duration != null) "${workout.duration} minutes" else "Not specified"
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                TitleDescription(
-                    title = "Date",
-                    description = workout.date ?: "Not specified"
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                TitleDescription(
-                    title = "Time",
-                    description = workout.time ?: "Not specified"
-                )
-
-                Spacer(modifier = Modifier.height(8.dp))
-
-                if (workout.comments != null) {
-                    Column {
-                        Text(
-                            text = "Comments",
-                            style = MaterialTheme.typography.labelLarge,
-                            fontWeight = FontWeight.SemiBold,
-                            color = MaterialTheme.colorScheme.onSurfaceVariant
-                        )
-                        Spacer(modifier = Modifier.height(4.dp))
-                        Text(
-                            text = workout.comments,
-                            style = MaterialTheme.typography.bodyMedium,
-                            color = MaterialTheme.colorScheme.onSurface
-                        )
-                    }
-                } else {
-                    TitleDescription(
-                        title = "Comments",
-                        description = "No comments"
+                    LabelValue(
+                        label = "Date",
+                        value = workout.date ?: "Not specified"
+                    )
+                    LabelValue(
+                        label = "Time",
+                        value = workout.time ?: "Not specified"
+                    )
+                    LabelValue(
+                        label = "Duration",
+                        value = if (workout.duration != null) "${workout.duration} minutes" else "Not specified"
                     )
                 }
             }
@@ -272,7 +216,7 @@ fun WorkoutDetailContent(
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        // Ratings Details Section - Full Width
+        // Rating Details Section - Full Width
         Card(
             modifier = Modifier.fillMaxWidth(),
             elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
@@ -283,21 +227,13 @@ fun WorkoutDetailContent(
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(20.dp),
-                horizontalAlignment = Alignment.CenterHorizontally
+                    .padding(16.dp)
             ) {
                 Text(
-                    text = "Ratings Details",
+                    text = "Rating Details",
                     style = MaterialTheme.typography.titleLarge,
                     fontWeight = FontWeight.Bold,
                     color = MaterialTheme.colorScheme.primary
-                )
-
-                Spacer(modifier = Modifier.height(16.dp))
-
-                TitleDescription(
-                    title = "Enjoyment",
-                    description = workout.enjoyment
                 )
 
                 Spacer(modifier = Modifier.height(12.dp))
@@ -305,12 +241,18 @@ fun WorkoutDetailContent(
                 val enjoymentRating = EnjoymentRating.entries.find {
                     it.displayName.equals(workout.enjoyment, ignoreCase = true)
                 }
-                if (enjoymentRating != null) {
-                    Text(
-                        text = enjoymentRating.emoji,
-                        style = MaterialTheme.typography.displayMedium
-                    )
-                }
+
+                LabelValue(
+                    label = "Enjoyment",
+                    value = if (enjoymentRating != null) "${enjoymentRating.emoji} ${workout.enjoyment}" else workout.enjoyment
+                )
+
+                Spacer(modifier = Modifier.height(4.dp))
+
+                LabelValue(
+                    label = "Comments",
+                    value = workout.comments ?: "No comments"
+                )
             }
         }
 

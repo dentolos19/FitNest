@@ -189,46 +189,30 @@ fun WorkoutItem(
 
             Spacer(modifier = Modifier.width(16.dp))
 
-            // Workout details
+            // Workout details, date, duration
             Column(
                 modifier = Modifier.weight(1f)
             ) {
                 Text(
-                    text = workout.name,
+                    text = workout.date ?: "No date",
                     style = MaterialTheme.typography.titleMedium,
                     fontWeight = FontWeight.Bold
                 )
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(
-                    text = workout.date ?: "No date",
+                    text = "${workout.duration ?: 0} minutes",
                     style = MaterialTheme.typography.bodyMedium,
                     color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.7f)
-                )
-                Spacer(modifier = Modifier.height(2.dp))
-                Text(
-                    text = "${workout.duration ?: 0} minutes",
-                    style = MaterialTheme.typography.bodySmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
                 )
             }
 
             // Rating
-            Column(
-                horizontalAlignment = Alignment.End
-            ) {
-                Text(
-                    text = "Rating",
-                    style = MaterialTheme.typography.labelSmall,
-                    color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
-                )
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(
-                    text = workout.enjoyment,
-                    style = MaterialTheme.typography.titleMedium,
-                    fontWeight = FontWeight.Bold,
-                    color = MaterialTheme.colorScheme.primary
-                )
-            }
+            Text(
+                text = workout.enjoyment,
+                style = MaterialTheme.typography.titleMedium,
+                fontWeight = FontWeight.Bold,
+                color = MaterialTheme.colorScheme.primary
+            )
         }
     }
 }
