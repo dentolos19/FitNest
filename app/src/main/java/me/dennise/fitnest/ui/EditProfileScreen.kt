@@ -19,11 +19,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.dennise.fitnest.ui.components.AppHeader
-import me.dennise.fitnest.ui.components.Avatar
-import me.dennise.fitnest.ui.components.BooleanInput
-import me.dennise.fitnest.ui.components.PasswordInput
-import me.dennise.fitnest.ui.components.TextInput
+import me.dennise.fitnest.ui.components.*
 import me.dennise.fitnest.ui.models.EditProfileViewModel
 import me.dennise.fitnest.ui.theme.AppTheme
 
