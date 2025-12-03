@@ -111,6 +111,9 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
             state = state.copy(emailError = "Email is required")
             // onError("Email is required")
             hasError = true
+        } else if (!android.util.Patterns.EMAIL_ADDRESS.matcher(state.email).matches()) {
+            state = state.copy(emailError = "Invalid email format")
+            hasError = true
         }
 
         if (state.selectedGender.isBlank()) {

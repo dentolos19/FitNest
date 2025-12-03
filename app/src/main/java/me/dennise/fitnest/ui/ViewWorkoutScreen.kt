@@ -72,7 +72,7 @@ fun ViewWorkoutScreen(
     Scaffold(
         topBar = {
             AppHeader(
-                title = "Workout Details",
+                title = uiState.workout?.category ?: "Workout Details",
                 canNavigateBack = true,
                 onNavigateBack = onNavigateBack,
                 actions = {

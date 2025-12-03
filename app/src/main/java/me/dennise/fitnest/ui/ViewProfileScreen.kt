@@ -44,7 +44,7 @@ fun ViewProfileScreen(
     Scaffold(
         topBar = {
             AppHeader(
-                title = "View Profile",
+                title = "Profile",
                 canNavigateBack = true,
                 onNavigateBack = onNavigateBack,
                 actions = {

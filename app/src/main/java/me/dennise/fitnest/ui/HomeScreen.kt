@@ -124,7 +124,7 @@ fun EmptyScreen(
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = "No Workouts Yet",
+                text = "No entries made",
                 style = MaterialTheme.typography.headlineSmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )
