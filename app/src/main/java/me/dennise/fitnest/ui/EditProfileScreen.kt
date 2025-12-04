@@ -1,11 +1,25 @@
 package me.dennise.fitnest.ui
 
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.input.KeyboardType
@@ -44,21 +58,20 @@ fun EditProfileScreen(
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
                 .padding(16.dp),
-            horizontalAlignment = Alignment.CenterHorizontally
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Avatar()
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             TextInput(
                 value = uiState.mobile,
                 onValueChange = viewModel::updateMobile,
                 label = "Mobile Number",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
-                errorText = uiState.mobileError
+                errorText = uiState.mobileError,
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !uiState.isLoading
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             PasswordInput(
                 password = uiState.password,
@@ -66,10 +79,10 @@ fun EditProfileScreen(
                 label = "New Password (optional)",
                 errorText = uiState.passwordError,
                 passwordVisible = uiState.passwordVisible,
-                onPasswordVisibilityChange = { viewModel.togglePasswordVisibility() }
+                onPasswordVisibilityChange = { viewModel.togglePasswordVisibility() },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !uiState.isLoading
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             PasswordInput(
                 password = uiState.confirmPassword,
@@ -77,26 +90,23 @@ fun EditProfileScreen(
                 label = "Confirm New Password",
                 errorText = uiState.confirmPasswordError,
                 passwordVisible = uiState.confirmPasswordVisible,
-                onPasswordVisibilityChange = { viewModel.toggleConfirmPasswordVisibility() }
+                onPasswordVisibilityChange = { viewModel.toggleConfirmPasswordVisibility() },
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !uiState.isLoading
             )
-
-            Spacer(modifier = Modifier.height(16.dp))
 
             BooleanInput(
                 label = "Receive Updates",
                 checked = uiState.receiveUpdates,
-                onCheckedChange = viewModel::updateReceiveUpdates
+                onCheckedChange = viewModel::updateReceiveUpdates,
+                modifier = Modifier.fillMaxWidth(),
+                enabled = !uiState.isLoading
             )
 
-            Spacer(modifier = Modifier.height(32.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Button(
-                onClick = {
-                    viewModel.save(
-                        onSuccess = { /* Handled by LaunchedEffect */ },
-                        onError = { /* Errors are displayed on screen */ }
-                    )
-                },
+                onClick = viewModel::save,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !uiState.isLoading
             ) {

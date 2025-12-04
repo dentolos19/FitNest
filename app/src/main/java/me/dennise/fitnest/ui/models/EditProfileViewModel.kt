@@ -63,10 +63,7 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
         _uiState.update { it.copy(confirmPasswordVisible = !it.confirmPasswordVisible) }
     }
 
-    fun save(
-        onSuccess: () -> Unit,
-        onError: (String) -> Unit
-    ) {
+    fun save() {
         val currentState = _uiState.value
         var hasError = false
 
@@ -88,33 +85,20 @@ class EditProfileViewModel(application: Application) : AndroidViewModel(applicat
             }
         }
 
-        if (hasError) {
-            onError("Please fix the errors")
-            return
-        }
+        if (hasError) return
 
         _uiState.update { it.copy(isLoading = true) }
 
         viewModelScope.launch {
-            try {
-                val currentUser = Session.getCurrentUser()
-                if (currentUser != null) {
-                    val updatedUser = currentUser.copy(
-                        mobile = currentState.mobile,
-                        receiveUpdates = currentState.receiveUpdates,
-                        password = if (currentState.password.isNotBlank()) currentState.password else currentUser.password
-                    )
-                    userRepository.updateUser(updatedUser)
-                    Session.login(updatedUser) // Update session with new user data
-                    _uiState.update { it.copy(isLoading = false, isSaved = true) }
-                    onSuccess()
-                } else {
-                    onError("User not found")
-                }
-            } catch (e: Exception) {
-                _uiState.update { it.copy(isLoading = false) }
-                onError("Failed to save profile: ${e.message}")
-            }
+            val currentUser = Session.getCurrentUser() ?: return@launch
+            val updatedUser = currentUser.copy(
+                mobile = currentState.mobile,
+                receiveUpdates = currentState.receiveUpdates,
+                password = if (currentState.password.isNotBlank()) currentState.password else currentUser.password
+            )
+            userRepository.updateUser(updatedUser)
+            Session.login(updatedUser)
+            _uiState.update { it.copy(isLoading = false, isSaved = true) }
         }
     }
 }
