@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.EnjoymentRating
+import me.dennise.fitnest.data.WorkoutEnjoyment
 import me.dennise.fitnest.data.WorkoutRepository
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.ui.states.AddWorkoutUiState
@@ -49,7 +49,7 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
     }
 
     fun updateEnjoyment(index: Int) {
-        val enjoymentRating = EnjoymentRating.entries[index]
+        val enjoymentRating = WorkoutEnjoyment.entries[index]
         _uiState.value = _uiState.value.copy(
             enjoyment = enjoymentRating.label,
             enjoymentIndex = index

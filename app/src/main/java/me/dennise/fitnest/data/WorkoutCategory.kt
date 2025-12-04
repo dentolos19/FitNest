@@ -6,4 +6,3 @@ enum class WorkoutCategory(val label: String) {
     FLEXIBILITY_MOBILITY("Flexibility & Mobility"),
     MIND_BODY_RECOVERY("Mind-Body Recovery")
 }
-

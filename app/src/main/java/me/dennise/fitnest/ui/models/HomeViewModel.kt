@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.WorkoutCategory
+import me.dennise.fitnest.data.WorkoutEnjoyment
 import me.dennise.fitnest.data.WorkoutRepository
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.ui.states.HomeUiState
@@ -60,7 +60,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "07:00 AM",
                     comments = "Great morning run in the park",
-                    enjoyment = EnjoymentRating.ENERGIZING.label
+                    enjoyment = WorkoutEnjoyment.ENERGIZING.label
                 )
             )
 
@@ -75,7 +75,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "06:00 PM",
                     comments = "Explored new trails",
-                    enjoyment = EnjoymentRating.CALMING.label
+                    enjoyment = WorkoutEnjoyment.CALMING.label
                 )
             )
 
@@ -90,7 +90,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "08:00 AM",
                     comments = "Relaxing yoga practice",
-                    enjoyment = EnjoymentRating.CALMING.label
+                    enjoyment = WorkoutEnjoyment.CALMING.label
                 )
             )
 
@@ -105,7 +105,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "05:30 PM",
                     comments = "Improved my technique",
-                    enjoyment = EnjoymentRating.MOTIVATING.label
+                    enjoyment = WorkoutEnjoyment.MOTIVATING.label
                 )
             )
 
@@ -120,7 +120,7 @@ class HomeViewModel(application: Application) : AndroidViewModel(application) {
                     date = dateFormat.format(calendar.time),
                     time = "06:00 AM",
                     comments = "Full body workout",
-                    enjoyment = EnjoymentRating.EXHAUSTING.label
+                    enjoyment = WorkoutEnjoyment.EXHAUSTING.label
                 )
             )
 

@@ -9,6 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
+import me.dennise.fitnest.data.UserGender
 import me.dennise.fitnest.data.entities.User
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -43,7 +44,7 @@ class MainActivity : ComponentActivity() {
                     username = "TestUser1",
                     password = "TestPassword1",
                     email = "user@example.com",
-                    gender = "Other",
+                    gender = UserGender.MALE.label,
                     mobile = "81234567",
                     yearOfBirth = 2007,
                     receiveUpdates = false

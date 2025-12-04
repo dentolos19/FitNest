@@ -10,7 +10,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.dennise.fitnest.data.EnjoymentRating
+import me.dennise.fitnest.data.WorkoutEnjoyment
 import me.dennise.fitnest.ui.theme.AppTheme
 
 @Composable
@@ -45,12 +45,12 @@ fun EnjoymentSlider(
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
             Text(
-                text = "${EnjoymentRating.entries.first().emoji} ${EnjoymentRating.entries.first().label}",
+                text = "${WorkoutEnjoyment.entries.first().emoji} ${WorkoutEnjoyment.entries.first().label}",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )
             Text(
-                text = "${EnjoymentRating.entries.last().emoji} ${EnjoymentRating.entries.last().label}",
+                text = "${WorkoutEnjoyment.entries.last().emoji} ${WorkoutEnjoyment.entries.last().label}",
                 style = MaterialTheme.typography.labelSmall,
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )

@@ -1,7 +1,7 @@
 package me.dennise.fitnest.ui.states
 
-import me.dennise.fitnest.data.EnjoymentRating
 import me.dennise.fitnest.data.WorkoutCategory
+import me.dennise.fitnest.data.WorkoutEnjoyment
 
 data class AddWorkoutUiState(
     val name: String = "",
@@ -9,7 +9,7 @@ data class AddWorkoutUiState(
     val category: String = WorkoutCategory.CARDIO.label,
     val duration: String = "",
     val comments: String = "",
-    val enjoyment: String = EnjoymentRating.ENERGIZING.label,
+    val enjoyment: String = WorkoutEnjoyment.ENERGIZING.label,
     val enjoymentIndex: Int = 0,
     val date: String = "",
     val time: String = ""

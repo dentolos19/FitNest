@@ -13,7 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.dennise.fitnest.data.EnjoymentRating
+import me.dennise.fitnest.data.WorkoutEnjoyment
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.getWorkoutCategoryIcon
 import me.dennise.fitnest.ui.components.AppHeader
@@ -232,7 +232,7 @@ fun WorkoutDetailContent(
 
                 Spacer(modifier = Modifier.height(12.dp))
 
-                val enjoymentRating = EnjoymentRating.entries.find {
+                val enjoymentRating = WorkoutEnjoyment.entries.find {
                     it.label.equals(workout.enjoyment, ignoreCase = true)
                 }
 

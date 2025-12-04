@@ -11,6 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import me.dennise.fitnest.data.UserGender
 
 @Composable
 fun GenderSelection(
@@ -20,8 +21,6 @@ fun GenderSelection(
     enabled: Boolean = true,
     errorText: String? = null,
 ) {
-    val genderOptions = listOf("Male", "Female", "Non-Binary", "Prefer Not To Say")
-
     Column(modifier = modifier) {
         Text(
             text = "Gender",
@@ -29,18 +28,18 @@ fun GenderSelection(
             modifier = Modifier.padding(bottom = 8.dp)
         )
 
-        genderOptions.forEach { gender ->
+        UserGender.entries.forEach { gender ->
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 RadioButton(
-                    selected = gender == selectedGender,
-                    onClick = { onGenderSelected(gender) },
+                    selected = gender.label == selectedGender,
+                    onClick = { onGenderSelected(gender.label) },
                     enabled = enabled
                 )
                 Text(
-                    text = gender,
+                    text = gender.label,
                     modifier = Modifier.padding(start = 8.dp)
                 )
             }
