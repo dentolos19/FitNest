@@ -3,6 +3,7 @@ package me.dennise.fitnest
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -93,17 +94,11 @@ fun AppNavigation() {
         }
 
         composable(Routes.PROFILE_DETAIL) {
-            ViewProfileScreen(
-                onNavigateBack = { navController.navigateUp() },
-                onNavigateToEdit = { navController.navigate(Routes.PROFILE_EDIT) }
-            )
+            Text(text = "Placeholder") // TODO: Implement view profile screen
         }
 
         composable(Routes.PROFILE_EDIT) {
-            EditProfileScreen(
-                onNavigateBack = { navController.navigateUp() },
-                onSaveSuccess = { navController.navigateUp() }
-            )
+            Text(text = "Placeholder") // TODO: Implement edit profile screen
         }
 
         composable(Routes.WORKOUT_ADD) {
