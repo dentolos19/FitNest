@@ -90,7 +90,7 @@ class RegisterViewModel(application: Application) : AndroidViewModel(application
 
         // Validate username
         if (currentState.username.isBlank()) {
-            _uiState.update { it.copy(usernameError = "User ID is required") }
+            _uiState.update { it.copy(usernameError = "Username is required") }
             hasError = true
         }
 

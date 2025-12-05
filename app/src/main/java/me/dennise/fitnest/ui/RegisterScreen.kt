@@ -62,8 +62,8 @@ fun RegisterScreen(
             TextInput(
                 value = uiState.username,
                 onValueChange = viewModel::updateUsername,
-                label = "User ID",
-                placeholder = "Enter user ID",
+                label = "Username",
+                placeholder = "Enter username",
                 errorText = uiState.usernameError,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !uiState.isLoading

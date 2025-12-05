@@ -70,8 +70,8 @@ fun LoginScreen(
             TextInput(
                 value = uiState.username,
                 onValueChange = viewModel::updateUsername,
-                label = "User ID",
-                placeholder = "Enter your User ID",
+                label = "Username",
+                placeholder = "Enter your username",
                 errorText = uiState.usernameError,
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !uiState.isLoading
