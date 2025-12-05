@@ -43,26 +43,28 @@ fun LoginScreen(
             Image(
                 painter = painterResource(id = R.drawable.icon),
                 contentDescription = "Logo",
-                modifier = Modifier
-                    .size(120.dp)
-                    .padding(bottom = 32.dp)
+                modifier = Modifier.size(120.dp)
             )
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             // Title
             Text(
                 text = "FitNest",
                 style = MaterialTheme.typography.headlineLarge,
-                color = MaterialTheme.colorScheme.primary,
-                modifier = Modifier.padding(bottom = 8.dp)
+                color = MaterialTheme.colorScheme.primary
             )
+
+            Spacer(modifier = Modifier.height(8.dp))
 
             // Subtitle
             Text(
                 text = "Login to your account",
                 style = MaterialTheme.typography.bodyLarge,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier.padding(bottom = 32.dp)
+                color = MaterialTheme.colorScheme.onSurfaceVariant
             )
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             // Username Field
             TextInput(
@@ -71,11 +73,11 @@ fun LoginScreen(
                 label = "User ID",
                 placeholder = "Enter your User ID",
                 errorText = uiState.usernameError,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 16.dp),
+                modifier = Modifier.fillMaxWidth(),
                 enabled = !uiState.isLoading
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Password Field
             PasswordInput(
@@ -84,11 +86,11 @@ fun LoginScreen(
                 passwordVisible = uiState.passwordVisible,
                 onPasswordVisibilityChange = { viewModel.togglePasswordVisibility() },
                 errorText = uiState.passwordError,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(bottom = 24.dp),
+                modifier = Modifier.fillMaxWidth(),
                 enabled = !uiState.isLoading
             )
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             // Login Button
             Button(
@@ -114,6 +116,7 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
+                shape = MaterialTheme.shapes.medium,
                 enabled = !uiState.isLoading
             ) {
                 if (uiState.isLoading) {
@@ -134,19 +137,11 @@ fun LoginScreen(
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
+                shape = MaterialTheme.shapes.medium,
                 enabled = !uiState.isLoading
             ) {
                 Text("Register")
             }
-
-            Spacer(modifier = Modifier.height(16.dp))
-
-            // Test Credentials Info
-            Text(
-                text = "Test credentials: TestUser1 / TestPassword1",
-                style = MaterialTheme.typography.bodySmall,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
-            )
         }
     }
 }

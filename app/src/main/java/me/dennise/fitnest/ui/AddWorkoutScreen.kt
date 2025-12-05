@@ -155,7 +155,7 @@ fun AddWorkoutScreen(
 
             Spacer(modifier = Modifier.height(16.dp))
 
-            // Workout Category Dropdown
+            // Category Dropdown
             var categoryExpanded by remember { mutableStateOf(false) }
             ExposedDropdownMenuBox(
                 expanded = categoryExpanded,
@@ -194,8 +194,8 @@ fun AddWorkoutScreen(
             TextInput(
                 value = uiState.duration,
                 onValueChange = { viewModel.updateDuration(it) },
-                label = "Duration (minutes)",
-                placeholder = "Optional",
+                label = "Duration (Optional)",
+                placeholder = "Enter duration in minutes",
                 keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                 modifier = Modifier.fillMaxWidth()
             )
@@ -206,8 +206,8 @@ fun AddWorkoutScreen(
             TextInput(
                 value = uiState.date,
                 onValueChange = {},
-                label = "Date",
-                placeholder = "Optional",
+                label = "Date (Optional)",
+                placeholder = "Enter date",
                 readOnly = true,
                 modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
@@ -226,8 +226,8 @@ fun AddWorkoutScreen(
             TextInput(
                 value = uiState.time,
                 onValueChange = {},
-                label = "Time",
-                placeholder = "Optional",
+                label = "Time (Optional)",
+                placeholder = "Enter time",
                 readOnly = true,
                 modifier = Modifier.fillMaxWidth(),
                 trailingIcon = {
@@ -246,7 +246,7 @@ fun AddWorkoutScreen(
             TextInput(
                 value = uiState.comments,
                 onValueChange = { viewModel.updateComments(it) },
-                label = "Comments",
+                label = "Comments (Optional)",
                 placeholder = "Enter comments",
                 modifier = Modifier.fillMaxWidth(),
                 singleLine = false,
@@ -280,7 +280,7 @@ fun AddWorkoutScreen(
                 },
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp),
+                    .height(50.dp),
                 shape = MaterialTheme.shapes.medium
             ) {
                 Text(
@@ -289,8 +289,6 @@ fun AddWorkoutScreen(
                     fontWeight = FontWeight.Bold
                 )
             }
-
-            Spacer(modifier = Modifier.height(24.dp))
         }
     }
 }

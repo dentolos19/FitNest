@@ -10,6 +10,7 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.input.KeyboardType
@@ -54,7 +55,8 @@ fun RegisterScreen(
                 .padding(16.dp)
                 .fillMaxSize()
                 .verticalScroll(rememberScrollState()),
-            verticalArrangement = Arrangement.spacedBy(16.dp)
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
             // Username Field
             TextInput(
@@ -66,6 +68,8 @@ fun RegisterScreen(
                 modifier = Modifier.fillMaxWidth(),
                 enabled = !uiState.isLoading
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Password Field
             PasswordInput(
@@ -80,6 +84,8 @@ fun RegisterScreen(
                 enabled = !uiState.isLoading
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Confirm Password Field
             PasswordInput(
                 password = uiState.confirmPassword,
@@ -93,6 +99,8 @@ fun RegisterScreen(
                 enabled = !uiState.isLoading
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Email Field
             TextInput(
                 value = uiState.email,
@@ -105,14 +113,7 @@ fun RegisterScreen(
                 enabled = !uiState.isLoading
             )
 
-            // Receive Updates Checkbox
-            BooleanInput(
-                label = "To receive updates via email",
-                checked = uiState.receiveUpdates,
-                onCheckedChange = viewModel::updateReceiveUpdates,
-                enabled = !uiState.isLoading,
-                modifier = Modifier.fillMaxWidth()
-            )
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Mobile Number Field
             TextInput(
@@ -126,6 +127,8 @@ fun RegisterScreen(
                 enabled = !uiState.isLoading
             )
 
+            Spacer(modifier = Modifier.height(16.dp))
+
             // Gender Selection
             GenderSelection(
                 modifier = Modifier.fillMaxWidth(),
@@ -134,6 +137,8 @@ fun RegisterScreen(
                 errorText = uiState.genderError,
                 enabled = !uiState.isLoading
             )
+
+            Spacer(modifier = Modifier.height(16.dp))
 
             // Year of Birth Picker
             TextInput(
@@ -155,7 +160,18 @@ fun RegisterScreen(
                 }
             )
 
-            Spacer(modifier = Modifier.height(8.dp))
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Receive Updates Checkbox
+            BooleanInput(
+                label = "To receive updates via email",
+                checked = uiState.receiveUpdates,
+                onCheckedChange = viewModel::updateReceiveUpdates,
+                enabled = !uiState.isLoading,
+                modifier = Modifier.fillMaxWidth()
+            )
+
+            Spacer(modifier = Modifier.height(32.dp))
 
             // Register Button
             Button(
@@ -170,7 +186,10 @@ fun RegisterScreen(
                         }
                     )
                 },
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                shape = MaterialTheme.shapes.medium,
                 enabled = !uiState.isLoading
             ) {
                 if (uiState.isLoading) {
@@ -181,6 +200,20 @@ fun RegisterScreen(
                 } else {
                     Text("Register")
                 }
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // Cancel Button
+            OutlinedButton(
+                onClick = onCancel,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp),
+                shape = MaterialTheme.shapes.medium,
+                enabled = !uiState.isLoading
+            ) {
+                Text("Cancel")
             }
         }
     }

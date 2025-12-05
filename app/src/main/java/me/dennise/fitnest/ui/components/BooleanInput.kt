@@ -24,7 +24,6 @@ fun BooleanInput(
         modifier = modifier
             .fillMaxWidth()
             .clickable(enabled = enabled) { onCheckedChange(!checked) }
-            .padding(vertical = 4.dp)
     ) {
         Checkbox(
             checked = checked,
