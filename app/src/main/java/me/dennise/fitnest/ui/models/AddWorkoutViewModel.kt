@@ -9,9 +9,9 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.WorkoutEnjoyment
 import me.dennise.fitnest.data.WorkoutRepository
 import me.dennise.fitnest.data.entities.Workout
+import me.dennise.fitnest.data.types.WorkoutEnjoyment
 import me.dennise.fitnest.ui.states.AddWorkoutUiState
 import java.text.SimpleDateFormat
 import java.util.*
@@ -92,8 +92,6 @@ class AddWorkoutViewModel(application: Application) : AndroidViewModel(applicati
             onError("User is not logged in!")
             return
         }
-
-
 
         viewModelScope.launch {
             try {

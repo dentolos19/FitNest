@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package me.dennise.fitnest.ui
 
 import androidx.compose.foundation.layout.*
@@ -19,7 +21,6 @@ import me.dennise.fitnest.ui.components.LabelValue
 import me.dennise.fitnest.ui.models.ViewProfileViewModel
 import me.dennise.fitnest.ui.states.ViewProfileUiState
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewProfileScreen(
     onNavigateBack: () -> Unit = {},

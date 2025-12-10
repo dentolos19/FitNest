@@ -1,7 +1,7 @@
 package me.dennise.fitnest.ui.states
 
-import me.dennise.fitnest.data.WorkoutCategory
-import me.dennise.fitnest.data.WorkoutEnjoyment
+import me.dennise.fitnest.data.types.WorkoutCategory
+import me.dennise.fitnest.data.types.WorkoutEnjoyment
 
 data class AddWorkoutUiState(
     val name: String = "",

@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package me.dennise.fitnest.ui
 
 import androidx.compose.foundation.layout.*
@@ -13,14 +15,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import me.dennise.fitnest.data.WorkoutEnjoyment
 import me.dennise.fitnest.data.entities.Workout
+import me.dennise.fitnest.data.types.WorkoutEnjoyment
 import me.dennise.fitnest.getWorkoutCategoryIcon
 import me.dennise.fitnest.ui.components.AppHeader
 import me.dennise.fitnest.ui.components.LabelValue
 import me.dennise.fitnest.ui.models.ViewWorkoutViewModel
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ViewWorkoutScreen(
     workoutId: Int,
@@ -28,6 +29,7 @@ fun ViewWorkoutScreen(
     viewModel: ViewWorkoutViewModel = viewModel()
 ) {
     val uiState by viewModel.uiState.collectAsState()
+
     var showDeleteDialog by remember { mutableStateOf(false) }
     var showMenu by remember { mutableStateOf(false) }
 

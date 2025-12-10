@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.Session
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.WorkoutCategory
-import me.dennise.fitnest.data.WorkoutEnjoyment
+import me.dennise.fitnest.data.types.WorkoutCategory
+import me.dennise.fitnest.data.types.WorkoutEnjoyment
 import me.dennise.fitnest.data.WorkoutRepository
 import me.dennise.fitnest.data.entities.Workout
 import me.dennise.fitnest.ui.states.HomeUiState

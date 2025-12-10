@@ -5,7 +5,7 @@ import androidx.compose.material.icons.automirrored.filled.DirectionsRun
 import androidx.compose.material.icons.filled.FitnessCenter
 import androidx.compose.material.icons.filled.SelfImprovement
 import androidx.compose.ui.graphics.vector.ImageVector
-import me.dennise.fitnest.data.WorkoutCategory
+import me.dennise.fitnest.data.types.WorkoutCategory
 
 fun getWorkoutCategoryIcon(category: String): ImageVector {
     return when (category.lowercase()) {

@@ -1,4 +1,4 @@
-package me.dennise.fitnest.data
+package me.dennise.fitnest.data.types
 
 enum class WorkoutCategory(val label: String) {
     CARDIO("Cardio"),

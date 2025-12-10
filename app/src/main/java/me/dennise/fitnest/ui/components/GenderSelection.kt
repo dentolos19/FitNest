@@ -11,7 +11,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import me.dennise.fitnest.data.UserGender
+import me.dennise.fitnest.data.types.UserGender
 
 @Composable
 fun GenderSelection(

@@ -8,10 +8,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import me.dennise.fitnest.data.WorkoutEnjoyment
-import me.dennise.fitnest.ui.theme.AppTheme
+import me.dennise.fitnest.data.types.WorkoutEnjoyment
 
 @Composable
 fun EnjoymentSlider(
@@ -55,18 +53,5 @@ fun EnjoymentSlider(
                 color = MaterialTheme.colorScheme.onSurface.copy(alpha = 0.6f)
             )
         }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun EnjoymentSliderPreview() {
-    AppTheme {
-        EnjoymentSlider(
-            enjoymentText = "Energizing ⚡",
-            enjoymentIndex = 0,
-            onEnjoymentChange = {},
-            modifier = Modifier.padding(24.dp)
-        )
     }
 }

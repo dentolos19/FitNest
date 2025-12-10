@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.launch
 import me.dennise.fitnest.data.AppDatabase
-import me.dennise.fitnest.data.UserGender
+import me.dennise.fitnest.data.types.UserGender
 import me.dennise.fitnest.data.entities.User
 import me.dennise.fitnest.ui.theme.AppTheme
 
@@ -40,16 +40,17 @@ class MainActivity : ComponentActivity() {
             val demoUser = userDao.get("TestUser1")
 
             if (demoUser == null) {
-                val user = User(
-                    username = "TestUser1",
-                    password = "TestPassword1",
-                    email = "user@example.com",
-                    gender = UserGender.MALE.label,
-                    mobile = "81234567",
-                    yearOfBirth = 2007,
-                    receiveUpdates = false
+                userDao.insert(
+                    User(
+                        username = "TestUser1",
+                        password = "TestPassword1",
+                        email = "user@example.com",
+                        gender = UserGender.MALE.label,
+                        mobile = "81234567",
+                        yearOfBirth = 2007,
+                        receiveUpdates = false
+                    )
                 )
-                userDao.insert(user)
             }
         }
     }
